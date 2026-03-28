@@ -7,15 +7,15 @@ LABEL description="Plateforme Éducative Hors-ligne - Mémoire L3"
 
 # Installer des dépendances système nécessaires à Django et MySQL
 # Installer les dépendances système nécessaires
-RUN apt-get update && apt-get install -y \
-    gcc \
-    g++ \
-    pkg-config \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    python3-dev \
     default-libmysqlclient-dev \
+    pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
 # Mettre à jour pip
-RUN pip install --no-cache-dir --upgrade pip
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel
 
 # Créer un répertoire de travail
 WORKDIR /app

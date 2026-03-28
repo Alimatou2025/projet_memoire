@@ -5,8 +5,8 @@ Django>=4.2           # Le moteur du site web éducatif
 mysqlclient           # Pour connecter l'application au serveur MySQL du projet
 
 # --- Analyse de Données (TP Data Science) ---
-pandas                # Pour la manipulation des données statistiques
-seaborn==0.12.2       # Pour générer des graphiques statistiques élégants
-plotly==5.18.0        # Pour les visualisations de données interactives
-openpyxl==3.1.2       # Pour lire et écrire des fichiers Excel (.xlsx)
-xlrd==2.0.1           # Pour supporter les anciens formats Excel (.xls)
+#pandas                # Pour la manipulation des données statistiques
+#seaborn==0.12.2       # Pour générer des graphiques statistiques élégants
+#plotly==5.18.0        # Pour les visualisations de données interactives
+#openpyxl==3.1.2       # Pour lire et écrire des fichiers Excel (.xlsx)
+#xlrd==2.0.1           # Pour supporter les anciens formats Excel (.xls)
