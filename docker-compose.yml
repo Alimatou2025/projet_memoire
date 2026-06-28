@@ -14,7 +14,9 @@ services:
 
   db:
 
-    image: mysql:8.0 # Télécharge l'image officielle MySQL ver>
+    image: arm64v8/mariadb:10.11 # Télécharge l'image officielle MySQL ver>
+
+    platform: linux/arm64
 
     container_name: memoire_db # Nomme le conteneur pour le re>
 
@@ -39,6 +41,10 @@ services:
     build: ./app # Dit à Docker de construire l'image à partir>
 
     container_name: memoire_app # Nom du conteneur de ton appl>
+
+    dns:
+       - 8.8.8.8
+       - 8.8.4.4
 
     volumes: # Synchronisation en temps réel du code
 

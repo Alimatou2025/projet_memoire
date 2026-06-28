@@ -21,13 +21,13 @@ RUN pip install --no-cache-dir --upgrade pip setuptools wheel
 WORKDIR /app
 
 # On copie d'abord le requirements.txt pour gagner du temps au build
-COPY requirements.txt /app/
+COPY requirements.txt ./
 
 # Installer les dépendances (Django, etc.)
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copier TOUT ton projet Django dans le conteneur
-COPY . /app/
+COPY . .
 
 # Exposer le port de l'application
 EXPOSE 8000
