@@ -1,71 +1,53 @@
 services:
-  # --- Nouveau service Réseau ---
   wifi:
     build: ./reseau
     container_name: memoire_wifi
-    network_mode: "host" # INDISPENSABLE : donne au conteneur l'accès direct à la carte Wi-Fi
-    privileged: true     # Nécessaire pour piloter le matériel physique
+    network_mode: "host"
+    privileged: true
     volumes:
       - ./reseau/hostapd.conf:/etc/hostapd/hostapd.conf
       - ./reseau/dnsmasq.conf:/etc/dnsmasq.conf
     restart: always
 
-# --- Service n°2 : La Base de Données ---
-
   db:
-
-    image: arm64v8/mariadb:10.11 # Télécharge l'image officielle MySQL ver>
-
+    image: arm64v8/mariadb:10.11
     platform: linux/arm64
+    container_name: memoire_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: plateforme_db
+      MYSQL_ROOT_PASSWORD: alima
+    volumes:
+      - ./base_donnees:/var/lib/mysql
 
-    container_name: memoire_db # Nomme le conteneur pour le re>
-
-    restart: always # Redémarre automatiquement le serveur si >
-
-    environment: # Définit les variables de configuration de M>
-
-      MYSQL_DATABASE: plateforme_db # Crée automatiquement la >
-
-      MYSQL_ROOT_PASSWORD: alima # Définit ton mot de passe ad>
-
-    volumes: # Zone de stockage persistante
-
-      - ./base_donnees:/var/lib/mysql # Lie le dossier local a>
-
-
-
-  # --- Service n°3 : L'Application Django ---
+  ollama:
+    image: ollama/ollama:latest
+    container_name: memoire_ia
+    platform: linux/arm64
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    volumes:
+      - ./ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"
+    restart: always
 
   web:
-
-    build: ./app # Dit à Docker de construire l'image à partir>
-
-    container_name: memoire_app # Nom du conteneur de ton appl>
-
+    build: ./app
+    container_name: memoire_app
     dns:
-       - 8.8.8.8
-       - 8.8.4.4
-
-    volumes: # Synchronisation en temps réel du code
-
-      - ./app:/app # Permet de modifier le code sur Windows et>
-
-    ports: # Redirection des ports
-
-      - "8000:8000" # Relie le port 8000 du conteneur au port >
-
-    depends_on: # Gestion de l'ordre de démarrage
-
-      - db # L'application attend que la base de données soit >
-
-    environment: # Transmet les accès à Django via des variabl>
-
-      - DB_NAME=plateforme_db # Nom de la base à rejoindre
-
-      - DB_USER=root # Utilisateur SQL
-
-      - DB_PASSWORD=alima # Ton mot de passe sécurisé
-
-      - DB_HOST=db # Utilise le nom du service "db" comme adre>
-
-
+      - 8.8.8.8
+      - 8.8.4.4
+    volumes:
+      - ./app:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - ollama
+    environment:
+      - DB_NAME=plateforme_db
+      - DB_USER=root
+      - DB_PASSWORD=alima
+      - DB_HOST=db

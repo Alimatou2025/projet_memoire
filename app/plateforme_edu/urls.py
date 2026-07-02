@@ -1,3 +1,4 @@
+from . import views
 from django.contrib import admin
 from django.urls import path
 from django.shortcuts import render
@@ -8,5 +9,6 @@ def home(request):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home, name='home'), # Le chemin vide '' signifie la page d'accueil
+    path('', home, name='home'),
+    path('assistant_ia/', views.assistant_ia, name='assistant_ia'), # Le chemin vide '' signifie la page d'accueil
 ]

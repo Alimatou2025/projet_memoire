@@ -4,3 +4,7 @@ db.sqlite3
 .venv/
 .env
 *.log
+base_donnees/
+ollama_data/
+*.save
+*.save.*
