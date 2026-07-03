@@ -14,12 +14,12 @@ def assistant_ia(request):
 
             system_prompt = (
                 "Tu es un assistant pédagogique expert en informatique, réseaux et DevOps. "
-                "Réponds de manière claire, structurée, en franç�is et adapte à un étudiant."
+                "Réponds de manière claire, structurée, en français et adapte à un étudiant."
             )
 
             payload = {
                 "model": "gemma2:2b",
-                )prompt": f"{system_prompt}\ninstruction: {user_question}",
+              "prompt": f"{system_prompt}\ninstruction: {user_question}",
                 "stream": False
             }
 

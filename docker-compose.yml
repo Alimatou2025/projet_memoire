@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   wifi:
     build: ./reseau
@@ -41,13 +43,16 @@ services:
       - 8.8.4.4
     volumes:
       - ./app:/app
+      - /usr/local/lib/python3.11/site-packages/
+      - /usr/local/bin/
     ports:
       - "8000:8000"
     depends_on:
       - db
       - ollama
     environment:
-      - DB_NAME=plateforme_db
-      - DB_USER=root
-      - DB_PASSWORD=alima
-      - DB_HOST=db
+      DB_NAME: plateforme_db
+      DB_USER: root
+      DB_PASSWORD: alima
+      DB_HOST: db
+    command: sh -c "pip install requests && python manage.py runserver 0.0.0.0:8000"
