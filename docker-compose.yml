@@ -55,4 +55,4 @@ services:
       DB_USER: root
       DB_PASSWORD: alima
       DB_HOST: db
-    command: sh -c "pip install requests && python manage.py runserver 0.0.0.0:8000"
+command: python manage.py runserver 0.0.0.0:8000
