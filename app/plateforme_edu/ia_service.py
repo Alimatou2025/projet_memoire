@@ -6,7 +6,7 @@ from django.conf import settings
 
 DOSSIER_DB = os.path.join(settings.BASE_DIR, "chroma_db_storage")
 client_db = chromadb.PersistentClient(path=DOSSIER_DB)
-collection = client_db.get_or_create_collection(name="cours_universite")
+collection = client_db.get_or_create_collection(name="cours_universite_v2",metadata={"hnsw:space": "cosine"})
 
 URL_OLLAMA = "http://ollama:11434"
 
