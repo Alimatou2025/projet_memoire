@@ -7,29 +7,40 @@ django.setup()
 
 from plateforme_edu.ia_service import collection, _convertir_en_chiffres, lire_et_enregistrer_pdf
 
-def preparer_base_de_test():
-    """Vérifie si la collection contient des documents, sinon demande d'en charger un."""
+def gerer_ingestion_interactive():
+    """Permet d'ajouter un nouveau cours à la base à chaque lancement si l'utilisateur le souhaite."""
     nb_docs = collection.count()
-    print(f"📊 Nombre de segments (chunks) dans 'cours_universite_v2' : {nb_docs}")
-    
-    if nb_docs == 0:
-        print("\n⚠️ La collection est vide (normale après renommage).")
-        chemin_pdf = input("👉 Entrez le chemin d'un fichier PDF de cours de test (ex: media/mon_cours.pdf) : ").strip()
-        if os.path.exists(chemin_pdf):
-            print("⏳ Indexation du PDF en cours...")
-            succes = lire_et_enregistrer_pdf(id_document=1, chemin_pdf=chemin_pdf)
-            if succes:
-                print("✅ PDF indexé avec succès !")
+    print(f"\n📊 Nombre actuel de segments (chunks) dans ChromaDB : {nb_docs}")
+
+    while True:
+        reponse = input("\n👉 Souhaites-tu ajouter un nouveau PDF de cours avant de tester ? (o/n) : ").strip().lower()
+        if reponse in ['o', 'oui']:
+            chemin_pdf = input("📁 Entrez le nom/chemin du fichier PDF dans app/ (ex: Reseau.pdf) : ").strip()
+            if os.path.exists(chemin_pdf):
+                print("⏳ Indexation du PDF en cours via Ollama...")
+                # On passe un ID simple (ex: 2) pour éviter le doublon "doc_doc_..."
+                id_doc = nb_docs + 1
+                succes = lire_et_enregistrer_pdf(id_document=id_doc, chemin_pdf=chemin_pdf)
+                if succes:
+                    print(f"✅ PDF indexé avec succès ! Nouveau total : {collection.count()} segments.")
+                else:
+                    print("❌ Échec de l'indexation du PDF.")
             else:
-                print("❌ Échec de l'indexation du PDF.")
+                print(f"❌ Fichier introuvable à l'emplacement : {chemin_pdf}")
+        elif reponse in ['n', 'non']:
+            break
         else:
-            print(f"❌ Fichier introuvable : {chemin_pdf}. Les tests de distance risquent de ne rien renvoyer.")
+            print("Veuillez répondre par 'o' (oui) ou 'n' (non).")
 
 def tester_distances():
-    preparer_base_de_test()
+    gerer_ingestion_interactive()
+
+    if collection.count() == 0:
+        print("\n⚠️ La base est vide. Aucun test de distance ne peut être effectué.")
+        return
 
     questions_test = [
-        # 🟢 Questions PERTINENTES (doivent correspondre directement au cours indexé)
+        # 🟢 Questions PERTINENTES
         ("Qu'est-ce qu'une base de données relationnelle ?", "PERTINENT"),
         ("Explique le principe du RAG en informatique", "PERTINENT"),
         
@@ -45,7 +56,7 @@ def tester_distances():
     for q, categorie in questions_test:
         vecteur = _convertir_en_chiffres(q)
         if not vecteur:
-            print(f"❌ Erreur de vectorisation (Ollama indisponible ?) pour : '{q}'")
+            print(f"❌ Erreur de vectorisation pour : '{q}'")
             continue
 
         res = collection.query(query_embeddings=[vecteur], n_results=1)

@@ -8,3 +8,7 @@ base_donnees/
 ollama_data/
 *.save
 *.save.*
+app/chroma_db_storage/
+app/plateforme_edu/chroma_db/
+app/media/
+app/*.pdf
