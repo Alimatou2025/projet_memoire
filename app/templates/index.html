@@ -1,68 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monespace.sn</title>
     <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/assistant.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Chat IA */
-        .chat-container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            background: #f9f9f9;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .chat-box {
-            height: 400px;
-            overflow-y: auto;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 15px;
-            background: white;
-            margin-bottom: 15px;
-        }
-        .message-apprenant {
-            background: #007bff;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 18px 18px 0 18px;
-            margin: 8px 0;
-            max-width: 70%;
-            margin-left: auto;
-            text-align: right;
-        }
-        .message-ia {
-            background: #e9ecef;
-            color: #333;
-            padding: 10px 15px;
-            border-radius: 18px 18px 18px 0;
-            margin: 8px 0;
-            max-width: 70%;
-        }
-        .chat-input {
-            display: flex;
-            gap: 10px;
-        }
-        .chat-input input {
-            flex: 1;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 25px;
-            font-size: 14px;
-        }
-        .chat-input button {
-            padding: 12px 25px;
-            background: #007bff;
-            color: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-        }
-        /* Upload */
+        /* Styles spécifiques au formulaire d'Upload de la page */
         .upload-container {
             max-width: 800px;
             margin: 40px auto;
@@ -78,8 +24,8 @@
             text-align: center;
             cursor: pointer;
         }
-        .upload-zone input {
-            display: none;
+        .upload-zone input { 
+            display: none; 
         }
         .btn-upload {
             background: #28a745;
@@ -98,14 +44,11 @@
         }
         .success { background: #d4edda; color: #155724; }
         .error { background: #f8d7da; color: #721c24; }
-        .typing {
-            color: #999;
-            font-style: italic;
-        }
     </style>
 </head>
 <body>
 
+    <!-- Navigation -->
     <nav class="navbar">
         <div class="logo">
             <i class="fas fa-university"></i>
@@ -113,19 +56,21 @@
         </div>
         <ul class="nav-links">
             <li><a href="#">Accueil</a></li>
-            <li><a href="#chat">AssistanteIA</a></li>
+            <li><a href="#" onclick="toggleAssistant(); return false;">AssistanteIA</a></li>
             <li><a href="#upload">Déposer un cours</a></li>
         </ul>
     </nav>
 
+    <!-- En-tête / Hero Section -->
     <header class="hero-section">
         <div class="hero-overlay">
             <h1>Bienvenue sur votre Plateforme</h1>
             <p>Optimisation de l'accès aux ressources pédagogiques en mode hors-ligne.</p>
-            <a href="#chat" class="btn-main">Accéder aux cours</a>
+            <a href="#" onclick="toggleAssistant(); return false;" class="btn-main">Accéder à LIA</a>
         </div>
     </header>
 
+    <!-- Fonctionnalités -->
     <section id="contenu" class="features">
         <div class="feature-card">
             <i class="fas fa-folder-open"></i>
@@ -137,36 +82,14 @@
             <h3>Vidéos</h3>
             <p>Tutoriels et démos techniques.</p>
         </div>
-        <div class="feature-card">
+        <div class="feature-card" onclick="toggleAssistant()" style="cursor: pointer;">
             <i class="fas fa-robot"></i>
             <h3>AssistanteIA</h3>
             <p>Posez vos questions sur vos cours.</p>
         </div>
     </section>
 
-    <section id="chat">
-        <div class="chat-container">
-            <h2><i class="fas fa-robot"></i> AssistanteIA — Posez vos questions</h2>
-            <div class="chat-box" id="chatBox">
-                <div class="message-ia">
-                    Bonjour ! Je suis votre AssistanteIA. 
-                    Posez-moi une question sur vos cours. 😊
-                </div>
-            </div>
-            <div class="chat-input">
-                <input 
-                    type="text" 
-                    id="questionInput" 
-                    placeholder="Posez votre question ici..."
-                    onkeypress="if(event.key==='Enter') envoyerQuestion()"
-                />
-                <button onclick="envoyerQuestion()">
-                    <i class="fas fa-paper-plane"></i> Envoyer
-                </button>
-            </div>
-        </div>
-    </section>
-
+    <!-- Section Dépôt de cours -->
     <section id="upload">
         <div class="upload-container">
             <h2><i class="fas fa-upload"></i> Déposer un cours PDF</h2>
@@ -177,9 +100,9 @@
                 <input type="file" id="fichierInput" accept=".pdf" onchange="afficherNomFichier()"/>
                 <p id="nomFichier" style="color:#007bff; font-weight:bold;"></p>
             </div>
-            <input 
-                type="text" 
-                id="titreInput" 
+            <input
+                type="text"
+                id="titreInput"
                 placeholder="Titre du cours"
                 style="width:100%; padding:12px; margin-top:15px; border:1px solid #ddd; border-radius:8px;"
             />
@@ -190,56 +113,54 @@
         </div>
     </section>
 
+    <!-- Bouton Flottant (FAB) -->
+    <button id="fabAssistantBtn" class="fab-btn" onclick="toggleAssistant()">
+        <i class="fa-solid fa-sparkles"></i>
+    </button>
+
+    <!-- Drawer Gemini (Assistant LIA) -->
+    <div class="assistant-drawer" id="assistantDrawer">
+        <div class="drawer-header">
+            <div class="title">✨ LIA</div>
+            <button onclick="toggleAssistant()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <div class="message ia">Bonjour ! Je suis LIA. Posez-moi une question sur vos cours ou ajoutez un document PDF.</div>
+        </div>
+        
+        <div class="chat-form-container">
+            <div class="file-preview" id="filePreview">
+                <i class="fa-solid fa-file-pdf"></i>
+                <span id="fileName">document.pdf</span>
+                <button onclick="annulerFichier()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="input-box">
+                <input type="file" id="fileInput" accept=".pdf" style="display: none;" onchange="gererFichier(this)">
+                
+                <button class="add-btn" onclick="document.getElementById('fileInput').click()" title="Ajouter un document PDF">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+                
+                <textarea id="userInput" rows="1" placeholder="Demandez à LIA..."></textarea>
+                
+                <button class="send-btn" onclick="sendMessage()">
+                    <i class="fa-solid fa-arrow-up"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2026 - Mémoire de Licence - USSEIN</p>
     </footer>
 
+    <!-- Script Assistant LIA -->
+    <script src="/static/js/assistant.js"></script>
+
+    <!-- Script Upload principal -->
     <script>
-        // ===== CHAT ASSISTANTE IA =====
-        async function envoyerQuestion() {
-            const input = document.getElementById('questionInput');
-            const question = input.value.trim();
-            if (!question) return;
-
-            ajouterMessage(question, 'apprenant');
-            input.value = '';
-
-            const typing = document.createElement('div');
-            typing.className = 'typing';
-            typing.id = 'typing';
-            typing.textContent = "AssistanteIA réfléchit...";
-            document.getElementById('chatBox').appendChild(typing);
-
-            try {
-                const reponse = await fetch('/assistant_ia/', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({question: question})
-                });
-                const data = await reponse.json();
-                
-                document.getElementById('typing')?.remove();
-                
-                ajouterMessage(
-                    data.reponse || "Désolé, je n'ai pas pu répondre.",
-                    'ia'
-                );
-            } catch (err) {
-                document.getElementById('typing')?.remove();
-                ajouterMessage("Erreur de connexion avec l'IA.", 'ia');
-            }
-        }
-
-        function ajouterMessage(texte, type) {
-            const chatBox = document.getElementById('chatBox');
-            const div = document.createElement('div');
-            div.className = type === 'apprenant' ? 'message-apprenant' : 'message-ia';
-            div.textContent = texte;
-            chatBox.appendChild(div);
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-
-        // ===== UPLOAD PDF =====
         function afficherNomFichier() {
             const fichier = document.getElementById('fichierInput').files[0];
             if (fichier) {
@@ -287,6 +208,5 @@
             }
         }
     </script>
-
 </body>
 </html>

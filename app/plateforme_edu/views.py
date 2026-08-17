@@ -45,7 +45,7 @@ def assistant_ia(request):
 
         return JsonResponse({"reponse": reponse, "status": "success"})
 
-    return render(request, "assistant.html")
+    return render(request, "index.html")
 
 
 @csrf_exempt
@@ -58,7 +58,7 @@ def ajouter_ressource(request):
 
         media_dir = os.path.join(settings.BASE_DIR, "media", "cours")
         os.makedirs(media_dir, exist_ok=True)
-        
+
         extension = os.path.splitext(fichier.name)[1]
         nom_fichier_unique = f"{doc_id}{extension}"
         chemin_pdf = os.path.join(media_dir, nom_fichier_unique)

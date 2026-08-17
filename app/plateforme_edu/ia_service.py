@@ -36,8 +36,12 @@ def prechauffer_modele():
     payload = {
         "model": "qwen2.5:1.5b",
         "prompt": "Bonjour",
-        "stream": False
+        "stream": False,
+        "options": {
+            "num_predict": 300
+       }
     }
+
     try:
         requests.post(OLLAMA_API_URL, json=payload, timeout=120)
         print("✅ Modèle qwen2.5:1.5b préchauffé et chargé en RAM.", flush=True)
@@ -141,7 +145,7 @@ Réponse de LIA:"""
     }
 
     try:
-        response = requests.post(OLLAMA_API_URL, json=payload, timeout=60)
+        response = requests.post(OLLAMA_API_URL, json=payload, timeout=120)
         if response.status_code == 200:
             return response.json().get("response", "Désolé, je n'ai pas pu générer de réponse.")
         return f"Erreur du service IA (Code {response.status_code})."
