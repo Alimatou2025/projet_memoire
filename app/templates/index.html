@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="/static/css/assistant.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Styles spécifiques au formulaire d'Upload de la page */
         .upload-container {
             max-width: 800px;
             margin: 40px auto;
@@ -24,8 +23,8 @@
             text-align: center;
             cursor: pointer;
         }
-        .upload-zone input { 
-            display: none; 
+        .upload-zone input {
+            display: none;
         }
         .btn-upload {
             background: #28a745;
@@ -118,49 +117,78 @@
         <i class="fa-solid fa-sparkles"></i>
     </button>
 
-    <!-- Drawer Gemini (Assistant LIA) -->
-    <div class="assistant-drawer" id="assistantDrawer">
-        <div class="drawer-header">
-            <div class="title">✨ LIA</div>
-            <button onclick="toggleAssistant()"><i class="fa-solid fa-xmark"></i></button>
-        </div>
+    <!-- Drawer Gemini avec Sidebar d'Historique -->
+    <div class="assistant-drawer sidebar-closed" id="assistantDrawer">
         
-        <div class="chat-messages" id="chatMessages">
-            <div class="message ia">Bonjour ! Je suis LIA. Posez-moi une question sur vos cours ou ajoutez un document PDF.</div>
-        </div>
-        
-        <div class="chat-form-container">
-            <div class="file-preview" id="filePreview">
-                <i class="fa-solid fa-file-pdf"></i>
-                <span id="fileName">document.pdf</span>
-                <button onclick="annulerFichier()"><i class="fa-solid fa-xmark"></i></button>
+        <!-- Sidebar Historique -->
+        <aside class="sidebar-history" id="sidebarHistory">
+            <div class="sidebar-header">
+                <button class="btn-icon" onclick="toggleSidebar()" title="Fermer la barre">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <button class="btn-new-chat" onclick="nouvelleDiscussion()">
+                    <i class="fa-solid fa-plus"></i> Nouveau
+                </button>
+            </div>
+            <div class="sidebar-content">
+                <span class="section-title">Récentes</span>
+                <div class="history-list" id="historyList">
+                    <!-- Les conversations chargées par le JS s'afficheront ici -->
+                </div>
+            </div>
+        </aside>
+
+        <!-- Zone de Chat Principale -->
+        <main class="chat-main-area">
+            <div class="drawer-header">
+                <div class="header-left">
+                    <button class="btn-icon" onclick="toggleSidebar()" title="Historique">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="title">✨ LIA</div>
+                </div>
+                <button class="btn-icon" onclick="toggleAssistant()"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
-            <div class="input-box">
-                <input type="file" id="fileInput" accept=".pdf" style="display: none;" onchange="gererFichier(this)">
-                
-                <button class="add-btn" onclick="document.getElementById('fileInput').click()" title="Ajouter un document PDF">
-                    <i class="fa-solid fa-plus"></i>
-                </button>
-                
-                <textarea id="userInput" rows="1" placeholder="Demandez à LIA..."></textarea>
-                
-                <button class="send-btn" onclick="sendMessage()">
-                    <i class="fa-solid fa-arrow-up"></i>
-                </button>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message ia">Bonjour ! Je suis LIA. Posez-moi une question sur vos cours ou ajoutez un document PDF.</div>
             </div>
-        </div>
+
+            <div class="chat-form-container">
+                <div class="file-preview" id="filePreview" style="display: none;">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <span id="fileName">document.pdf</span>
+                    <button onclick="annulerFichier()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <div class="input-box">
+                    <input type="file" id="fileInput" accept=".pdf" style="display: none;" onchange="gererFichier(this)">
+
+                    <button class="add-btn" onclick="document.getElementById('fileInput').click()" title="Ajouter un document PDF">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+
+                    <textarea id="userInput" rows="1" placeholder="Demandez à LIA..."></textarea>
+
+                    <button class="send-btn" onclick="sendMessage()">
+                        <i class="fa-solid fa-arrow-up"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
     </div>
 
     <footer>
         <p>&copy; 2026 - Mémoire de Licence - USSEIN</p>
     </footer>
 
-    <!-- Script Assistant LIA -->
+    <!-- Scripts -->
     <script src="/static/js/assistant.js"></script>
-
-    <!-- Script Upload principal -->
     <script>
+        function toggleSidebar() {
+            document.getElementById('assistantDrawer').classList.toggle('sidebar-closed');
+        }
+
         function afficherNomFichier() {
             const fichier = document.getElementById('fichierInput').files[0];
             if (fichier) {
@@ -196,10 +224,10 @@
                 const data = await reponse.json();
 
                 if (data.status === 'success') {
-                    msgDiv.textContent = `✅ "${data.titre}" indexé avec succès ! ${data.ia}`;
+                    msgDiv.textContent = `✅ "${data.titre}" indexé avec succès ! ${data.ia || ''}`;
                     msgDiv.className = 'success';
                 } else {
-                    msgDiv.textContent = `❌ Erreur : ${data.message}`;
+                    msgDiv.textContent = `❌ Erreur : ${data.message || data.erreur}`;
                     msgDiv.className = 'error';
                 }
             } catch (err) {

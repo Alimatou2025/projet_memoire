@@ -13,7 +13,6 @@ collection = chroma_client.get_or_create_collection(
     metadata={"hnsw:space": "cosine"}
 )
 
-
 def _convertir_en_chiffres(texte):
     payload = {
         "model": "nomic-embed-text:latest",
@@ -28,26 +27,21 @@ def _convertir_en_chiffres(texte):
         print(f"Erreur d'embedding : {e}", flush=True)
         return []
 
-
 def prechauffer_modele():
-    """
-    Préchauffe le modèle 1.5b en RAM au démarrage de Django.
-    """
+    """Préchauffe le modèle 1.5b en RAM au démarrage de Django."""
     payload = {
         "model": "qwen2.5:1.5b",
         "prompt": "Bonjour",
         "stream": False,
         "options": {
             "num_predict": 300
-       }
+        }
     }
-
     try:
         requests.post(OLLAMA_API_URL, json=payload, timeout=120)
         print("✅ Modèle qwen2.5:1.5b préchauffé et chargé en RAM.", flush=True)
     except Exception as e:
         print(f"⚠️ Échec du préchauffage du modèle : {e}", flush=True)
-
 
 def lire_et_enregistrer_pdf(doc_id, chemin_pdf, titre_cours="Document"):
     from pypdf import PdfReader
@@ -84,18 +78,34 @@ def lire_et_enregistrer_pdf(doc_id, chemin_pdf, titre_cours="Document"):
         )
     return len(documents)
 
+def generer_titre_conversation(question_utilisateur):
+    """Génère un titre court à partir de la première question."""
+    prompt = f"""Résume le sujet de cette question en 3 à 5 mots maximum, sans ponctuation finale, comme un titre de conversation. Réponds uniquement avec le titre, rien d'autre.
+Question : {question_utilisateur}
+Titre :"""
+    payload = {
+        "model": "qwen2.5:1.5b",
+        "prompt": prompt,
+        "stream": False,
+        "options": {"num_predict": 20}
+    }
+    try:
+        response = requests.post(OLLAMA_API_URL, json=payload, timeout=30)
+        if response.status_code == 200:
+            titre = response.json().get("response", "").strip().strip('"').strip("'")
+            return titre[:60] if titre else question_utilisateur[:40]
+    except Exception:
+        pass
+    return question_utilisateur[:40]
 
 def poser_question_a_lia(question_utilisateur, historique_messages=None, doc_id=None, modele="qwen2.5:1.5b"):
-    """
-    Interrogation RAG + Qwen2.5 1.5B
-    """
     if historique_messages is None:
         historique_messages = []
 
     question_nettoyee = question_utilisateur.strip().strip('"').strip("'")
     question_vector = _convertir_en_chiffres(question_nettoyee)
     contexte_texte = "Aucun document spécifique trouvé."
-    
+
     if question_vector:
         where_clause = {"document_id": str(doc_id)} if doc_id else None
 
@@ -125,7 +135,6 @@ def poser_question_a_lia(question_utilisateur, historique_messages=None, doc_id=
         historique_formate += f"{role}: {msg.get('content')}\n"
 
     prompt_systeme = f"""Tu es LIA, un assistant pédagogique bienveillant et précis sur la plateforme MonEspace.
-
 [HISTORIQUE DE LA CONVERSATION]
 {historique_formate if historique_formate else "Début de la conversation."}
 
@@ -141,7 +150,10 @@ Réponse de LIA:"""
     payload = {
         "model": modele,
         "prompt": prompt_systeme,
-        "stream": False
+        "stream": False,
+        "options": {
+            "num_predict": 300
+        }
     }
 
     try:
