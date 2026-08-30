@@ -311,3 +311,39 @@
     font-family: inherit;
     outline: none;
 }
+
+/* --- Adaptation mobile --- */
+/* Sur petit écran, le drawer 420px + sidebar 220px dépassait déjà la largeur
+   de l'écran, écrasant les deux colonnes l'une contre l'autre. On fait
+   plutôt occuper au drawer toute la largeur de l'écran, et la sidebar
+   devient un panneau qui glisse PAR-DESSUS le chat (comme une vraie appli
+   mobile) au lieu de partager l'espace en permanence avec lui. */
+@media (max-width: 600px) {
+    .assistant-drawer {
+        width: 100vw;
+    }
+
+    .sidebar-history {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 85vw;
+        max-width: 320px;
+        z-index: 10;
+        box-shadow: 2px 0 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .assistant-drawer.sidebar-closed .sidebar-history {
+        width: 0;
+        box-shadow: none;
+    }
+
+    .chat-main-area {
+        width: 100%;
+    }
+
+    .message {
+        max-width: 90%;
+    }
+}

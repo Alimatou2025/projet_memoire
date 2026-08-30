@@ -1,5 +1,9 @@
-﻿django
+django
 requests
 chromadb
 pypdf
 mysqlclient
+ftfy
+scikit-learn
+numpy
+pandas

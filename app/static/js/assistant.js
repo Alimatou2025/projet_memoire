@@ -1,5 +1,6 @@
 let conversationActive = null;
 let fichierSelectionne = null;
+let documentActif = null;
 
 document.addEventListener('DOMContentLoaded', () => {
     chargerListeConversations();
@@ -150,6 +151,7 @@ function activerRenommage(item, span, id, titreActuel) {
 
 async function chargerConversation(id) {
     conversationActive = id;
+    documentActif = null;
     const chatMessages = document.getElementById('chatMessages');
     if (!chatMessages) return;
 
@@ -180,6 +182,7 @@ async function chargerConversation(id) {
 
 function nouvelleDiscussion() {
     conversationActive = null;
+    documentActif = null;
     const chatMessages = document.getElementById('chatMessages');
     if (chatMessages) {
         chatMessages.innerHTML = `
@@ -242,73 +245,67 @@ async function sendMessage() {
     const question = userInput.value.trim();
     if (!question && !fichierSelectionne) return;
 
+    // On affiche tout de suite les deux bulles utilisateur (fichier + question),
+    // puis on envoie TOUT en une seule requête, comme sur Claude/Gemini.
     if (fichierSelectionne) {
         afficherMessage(`📁 Document joint : ${fichierSelectionne.name}`, 'user');
-        afficherTyping();
-
-        const formData = new FormData();
-        formData.append('fichier', fichierSelectionne);
-        formData.append('titre', fichierSelectionne.name);
-
-        try {
-            const resFile = await fetch('/ressource/ajouter/', {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': getCookie('csrftoken')
-                },
-                body: formData
-            });
-            const dataFile = await resFile.json();
-            retirerTyping();
-
-            if (dataFile.status === 'success') {
-                afficherMessage(`✅ Document indexé ${dataFile.ia || ''}`, 'ia');
-            } else {
-                afficherMessage(`⚠️ Erreur d'indexation : ${dataFile.erreur || 'Échec du traitement'}`, 'ia');
-            }
-        } catch (e) {
-            retirerTyping();
-            afficherMessage("⚠️ Erreur réseau lors de l'envoi du fichier.", 'ia');
-        }
-        annulerFichier();
     }
-
     if (question) {
         afficherMessage(question, 'user');
-        userInput.value = '';
-        userInput.style.height = 'auto';
+    }
 
-        afficherTyping();
+    userInput.value = '';
+    userInput.style.height = 'auto';
+    afficherTyping();
 
-        try {
-            const response = await fetch('/assistant_ia/', {
-                method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken')
-                },
-                body: JSON.stringify({
-                    question: question,
-                    conversation_id: conversationActive
-                })
-            });
+    const formData = new FormData();
+    if (fichierSelectionne) {
+        formData.append('fichier', fichierSelectionne);
+        formData.append('titre', fichierSelectionne.name);
+    }
+    formData.append('question', question);
+    if (conversationActive) {
+        formData.append('conversation_id', conversationActive);
+    }
+    if (documentActif) {
+        formData.append('doc_id', documentActif);
+    }
 
-            const data = await response.json();
-            retirerTyping();
+    const fichierEnvoye = fichierSelectionne;
+    annulerFichier();
 
-            if (data.reponse) {
-                afficherMessage(data.reponse, 'ia');
-                if (data.conversation_id) {
-                    conversationActive = data.conversation_id;
-                    chargerListeConversations();
-                }
-            } else {
-                afficherMessage("❌ " + (data.erreur || "Une erreur est survenue."), 'ia');
-            }
-        } catch (err) {
-            retirerTyping();
-            afficherMessage("❌ Erreur de connexion au serveur.", 'ia');
+    try {
+        const response = await fetch('/assistant_ia/', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: formData
+        });
+
+        const data = await response.json();
+        retirerTyping();
+
+        if (fichierEnvoye && data.doc_id) {
+            afficherMessage(`✅ Document reçu : ${data.doc_titre || fichierEnvoye.name} (indexation complète en arrière-plan)`, 'ia');
         }
+
+        if (data.reponse) {
+            afficherMessage(data.reponse, 'ia');
+        } else if (question) {
+            afficherMessage("❌ " + (data.erreur || "Une erreur est survenue."), 'ia');
+        }
+
+        if (data.conversation_id) {
+            conversationActive = data.conversation_id;
+            chargerListeConversations();
+        }
+        if (data.doc_id) {
+            documentActif = data.doc_id;
+        }
+    } catch (err) {
+        retirerTyping();
+        afficherMessage("❌ Erreur de connexion au serveur.", 'ia');
     }
 }
 

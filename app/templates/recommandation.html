@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Recommandations - Plateforme pédagogique</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 20px; }
+        h1 { color: #333; }
+        .source-info { background: #fff3cd; padding: 12px 16px; border-radius: 8px; margin-bottom: 24px; color: #664d03; }
+        .contenu { display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-start; }
+        .graphique-conteneur { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); width: 320px; }
+        .groupes { display: flex; flex-direction: column; gap: 16px; flex: 1; min-width: 280px; }
+        .groupe { background: white; border-radius: 12px; padding: 18px 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 16px; }
+        .pastille { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
+        .debutant .pastille { background: #d97706; }
+        .moyen .pastille { background: #2563eb; }
+        .excellent .pastille { background: #16a34a; }
+        .groupe-texte h2 { margin: 0 0 4px 0; font-size: 1.1em; }
+        .debutant h2 { color: #d97706; }
+        .moyen h2 { color: #2563eb; }
+        .excellent h2 { color: #16a34a; }
+        .nb { font-weight: bold; }
+        .recommandation-texte { font-size: 0.88em; color: #555; margin-top: 4px; line-height: 1.4; }
+        a.retour { display: inline-block; margin-bottom: 20px; color: #2563eb; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <a href="/" class="retour">&larr; Retour à l'assistant</a>
+    <h1>Recommandations par profil d'apprenant</h1>
+
+    <div class="source-info">
+        Source des données : {{ source }} — {{ total }} profils analysés au total.
+        Ce jeu de données valide la méthode de clustering en attendant un volume
+        suffisant de données réelles issues de la plateforme elle-même.
+    </div>
+
+    <div class="contenu">
+        <div class="graphique-conteneur">
+            <canvas id="graphiqueProfils"></canvas>
+        </div>
+
+        <div class="groupes">
+            <div class="groupe debutant">
+                <div class="pastille"></div>
+                <div class="groupe-texte">
+                    <h2>Débutant — <span class="nb">{{ groupes.debutant|length }}</span></h2>
+                    <div class="recommandation-texte">{{ recommandations_texte.debutant }}</div>
+                </div>
+            </div>
+            <div class="groupe moyen">
+                <div class="pastille"></div>
+                <div class="groupe-texte">
+                    <h2>Moyen — <span class="nb">{{ groupes.moyen|length }}</span></h2>
+                    <div class="recommandation-texte">{{ recommandations_texte.moyen }}</div>
+                </div>
+            </div>
+            <div class="groupe excellent">
+                <div class="pastille"></div>
+                <div class="groupe-texte">
+                    <h2>Excellent — <span class="nb">{{ groupes.excellent|length }}</span></h2>
+                    <div class="recommandation-texte">{{ recommandations_texte.excellent }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('graphiqueProfils');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Débutant', 'Moyen', 'Excellent'],
+                datasets: [{
+                    data: [{{ groupes.debutant|length }}, {{ groupes.moyen|length }}, {{ groupes.excellent|length }}],
+                    backgroundColor: ['#d97706', '#2563eb', '#16a34a'],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    title: { display: true, text: 'Répartition des profils d\'apprenants' }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
