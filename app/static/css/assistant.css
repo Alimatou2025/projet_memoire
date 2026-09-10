@@ -6,7 +6,7 @@
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #1a73e8, #4285f4);
+    background: linear-gradient(135deg, #007b3e, #00a352);
     color: white;
     border: none;
     cursor: pointer;
@@ -159,7 +159,7 @@
 }
 
 .history-item.active {
-    background: #d3e3fd;
+    background: #e8f5ee;
     font-weight: 600;
 }
 
@@ -249,8 +249,8 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    background: #e8f0fe;
-    color: #1a73e8;
+    background: #e8f5ee;
+    color: #007b3e;
     padding: 6px 12px;
     border-radius: 8px;
     font-size: 0.8rem;
@@ -260,7 +260,7 @@
 .file-preview button {
     background: none;
     border: none;
-    color: #1a73e8;
+    color: #007b3e;
     cursor: pointer;
     margin-left: auto;
 }
@@ -300,11 +300,11 @@
 
 .add-btn:hover, .send-btn:hover {
     background: #e1e5ea;
-    color: #1a73e8;
+    color: #007b3e;
 }
 .history-rename-input {
     width: 100%;
-    border: 1px solid #1a73e8;
+    border: 1px solid #007b3e;
     border-radius: 6px;
     padding: 4px 8px;
     font-size: 0.85rem;

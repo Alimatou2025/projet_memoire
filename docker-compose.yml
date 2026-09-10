@@ -15,6 +15,7 @@ services:
     image: arm64v8/mariadb:10.11
     platform: linux/arm64
     container_name: memoire_db
+    restart: always
     environment:
       MYSQL_DATABASE: plateforme_db
       MYSQL_ROOT_PASSWORD: alima
@@ -37,6 +38,7 @@ services:
   web:
     build: ./app
     container_name: memoire_app
+    restart: always
     dns:
       - 8.8.8.8
       - 8.8.4.4
