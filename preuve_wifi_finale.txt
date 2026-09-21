@@ -1,0 +1,15 @@
+memoire_wifi  | wlan1: STA 34:cf:f6:66:2a:92 WPA: pairwise key handshake completed (RSN)
+memoire_wifi  | wlan1: EAPOL-4WAY-HS-COMPLETED 34:cf:f6:66:2a:92
+memoire_wifi  | wlan1: STA 56:5f:97:f3:99:c0 IEEE 802.11: authenticated
+memoire_wifi  | wlan1: STA 56:5f:97:f3:99:c0 IEEE 802.11: associated (aid 2)
+memoire_wifi  | wlan1: AP-STA-CONNECTED 56:5f:97:f3:99:c0
+memoire_wifi  | wlan1: STA 56:5f:97:f3:99:c0 RADIUS: starting accounting session DE0A71096A44D4F6
+memoire_wifi  | wlan1: STA 56:5f:97:f3:99:c0 WPA: pairwise key handshake completed (RSN)
+memoire_wifi  | wlan1: EAPOL-4WAY-HS-COMPLETED 56:5f:97:f3:99:c0
+memoire_wifi  | wlan1: AP-STA-DISCONNECTED 34:cf:f6:66:2a:92
+memoire_wifi  | wlan1: STA 34:cf:f6:66:2a:92 IEEE 802.11: authenticated
+memoire_wifi  | wlan1: STA 34:cf:f6:66:2a:92 IEEE 802.11: associated (aid 1)
+memoire_wifi  | wlan1: AP-STA-CONNECTED 34:cf:f6:66:2a:92
+memoire_wifi  | wlan1: STA 34:cf:f6:66:2a:92 RADIUS: starting accounting session 003A26D05C02EC75
+memoire_wifi  | wlan1: STA 34:cf:f6:66:2a:92 WPA: pairwise key handshake completed (RSN)
+memoire_wifi  | wlan1: EAPOL-4WAY-HS-COMPLETED 34:cf:f6:66:2a:92
