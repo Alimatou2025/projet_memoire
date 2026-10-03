@@ -1,0 +1,44 @@
+{% extends "base_dashboard.html" %}
+
+{% block titre %}Modifier une ressource — Enseignant{% endblock %}
+
+{% block contenu %}
+<div class="barre-superieure">
+    <span class="fil-ariane"><a href="{% url 'mes_ressources' %}">Mes ressources</a> / Modifier</span>
+</div>
+<div class="conteneur-large">
+
+<div class="entete-page">
+    <h1>Modifier « {{ ressource.titre }} »</h1>
+    <p>Cas d'utilisation « Gérer ses ressources » : mets à jour le titre, l'espace de cours ou le niveau requis.</p>
+</div>
+
+<div class="carte" style="max-width:480px;">
+    <form method="post">
+        {% csrf_token %}
+
+        <label for="titre">Titre</label>
+        <input type="text" id="titre" name="titre" value="{{ ressource.titre }}" required>
+
+        <label for="espace">Espace de cours</label>
+        <select id="espace" name="espace" required>
+            {% for e in espaces %}
+            <option value="{{ e.id_espace }}" {% if e.id_espace == ressource.espace_id %}selected{% endif %}>{{ e.nom }} ({{ e.parcours.intitule }})</option>
+            {% endfor %}
+        </select>
+
+        <label for="niveau_requis">Niveau requis</label>
+        <select id="niveau_requis" name="niveau_requis">
+            {% for valeur, libelle in niveaux %}
+            <option value="{{ valeur }}" {% if valeur == ressource.niveau_requis %}selected{% endif %}>{{ libelle }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit" class="bouton" style="margin-top:0.9rem;">Enregistrer</button>
+    </form>
+</div>
+
+<p style="margin-top:1rem;"><a href="{% url 'mes_ressources' %}">&larr; Retour à mes ressources</a></p>
+
+</div>
+{% endblock %}

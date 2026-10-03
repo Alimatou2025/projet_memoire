@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titre %}Connexion — Plateforme pédagogique{% endblock %}
+
+{% block corps %}
+<div class="page-connexion-split">
+    <div class="volet-image">
+        <img src="{% static 'img/fond_connexion.jpg' %}" alt="">
+        <div class="volet-image-texte">
+            <h2>Apprendre, même hors ligne.</h2>
+            <p>Une plateforme pédagogique intelligente, accessible sans connexion internet.</p>
+        </div>
+    </div>
+
+    <div class="volet-formulaire">
+        <div class="carte-connexion">
+            <h2>Connexion</h2>
+            <p class="sous-titre">Une seule page pour tout le monde : administrateur, enseignant ou apprenant.</p>
+
+            {% if erreur %}
+                <div class="message-erreur">{{ erreur }}</div>
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+                <label for="username">Identifiant</label>
+                <input type="text" id="username" name="username" required autofocus>
+
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit" class="bouton">Se connecter</button>
+            </form>
+
+            <p class="lien-inscription">
+                Pas encore de compte ? <a href="{% url 'inscription' %}">Inscris-toi</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

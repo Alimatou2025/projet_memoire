@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titre %}Plateforme pédagogique{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <nav class="barre-navigation">
+        <div class="logo-plateforme"><span class="texte-logo">📚 Plateforme pédagogique</span></div>
+        <div class="onglets-navigation">
+            {% if user.is_authenticated %}
+                <a href="{% url 'connexion' %}">Tableau de bord</a>
+                <a href="{% url 'assistant_ia' %}">LIA</a>
+                <a href="{% url 'deconnexion' %}">Déconnexion</a>
+            {% else %}
+                <a href="{% url 'connexion' %}" class="actif">Connexion</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    {% block corps %}
+    <div class="conteneur">
+        {% block contenu %}
+        {% endblock %}
+    </div>
+    {% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+{% extends "base_dashboard.html" %}
+
+{% block titre %}Tableau de bord — Apprenant{% endblock %}
+
+{% block contenu %}
+<div class="barre-superieure">
+    <span class="fil-ariane">Tableau de bord</span>
+</div>
+<div class="conteneur-large">
+
+<div class="entete-page">
+    <h1>Salut {{ request.user.first_name }} 👋</h1>
+    <p>Continue sur ta lancée, voici où tu en es.</p>
+</div>
+
+<div class="grille-stats">
+    <div class="carte-stat">
+        <div><span class="valeur">{{ statistiques.moyenne_generale|default:"—" }}</span><span class="libelle">Moyenne générale</span></div>
+        <div class="icone-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
+    </div>
+    <div class="carte-stat">
+        <div><span class="valeur">{{ statistiques.nombre_quiz_passes|default:"0" }}</span><span class="libelle">Quiz passés</span></div>
+        <div class="icone-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+    </div>
+    <div class="carte-stat">
+        <div><span class="valeur">{{ nombre_ressources_disponibles|default:"0" }}</span><span class="libelle">Ressources disponibles</span></div>
+        <div class="icone-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"/></svg></div>
+    </div>
+</div>
+
+<div class="disposition-2col">
+    <div>
+        <h2 class="titre-section">Ma progression</h2>
+        <div class="carte">
+            <p style="margin-top:0;">Niveau : <strong>{{ request.user.profil_apprenant.niveau|default:"débutant" }}</strong></p>
+            <div class="barre-progression">
+                <div class="barre-progression-valeur" style="width: {{ pourcentage_progression|default:'20' }}%;"></div>
+            </div>
+        </div>
+                    {% with stats=request.user.profil_apprenant.statistiques %}
+            {% if stats %}
+            <p style="margin-top:1em; margin-bottom:0.3em; font-size:0.9em; opacity:0.8;">
+                Aperçu de ta progression :
+            </p>
+            <p style="margin:0; font-size:0.85em;">
+                Débutant : <strong>{{ stats.degre_debutant }}%</strong> ·
+                Moyen : <strong>{{ stats.degre_moyen }}%</strong> ·
+                Excellent : <strong>{{ stats.degre_excellent }}%</strong>
+            </p>
+            {% endif %}
+            {% endwith %}
+
+        <h2 class="titre-section">Recommandé pour toi</h2>
+        {% for reco in recommandations %}
+        <div class="carte-recommandation">
+            <strong>{{ reco.ressource.titre }}</strong><br>
+            <small style="opacity:0.7;">{{ reco.ressource.espace.nom }}</small>
+        </div>
+        {% empty %}
+        <p class="liste-vide">Pas encore de recommandation, continue à t'entraîner !</p>
+        {% endfor %}
+    </div>
+
+    <div>
+        <div class="carte-assistant-mini">
+            <div style="font-size:2rem;">🤖</div>
+            <strong>Une question sur un cours ?</strong>
+            <p style="opacity:0.9; font-size:0.9rem;">L'assistant IA répond directement à partir de tes documents de cours.</p>
+            <a href="{% url 'assistant_ia' %}" class="bouton">Poser une question</a>
+        </div>
+
+        <h2 class="titre-section">Mes parcours</h2>
+        <div class="carte">
+            {% for insc in inscriptions %}
+            <div class="mini-carte-ressource">
+                <span>{{ insc.parcours.intitule }}</span>
+                <a href="{% url 'mes_ressources' %}" class="bouton bouton-secondaire" style="padding:0.3rem 0.8rem; font-size:0.8rem;">Ouvrir</a>
+            </div>
+            {% empty %}
+            <p class="liste-vide">Tu n'es inscrit à aucun parcours.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

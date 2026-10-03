@@ -1,0 +1,18 @@
+version;id_question;repetition;question;temps_secondes;ram;reponse
+v1b_qwen_seul;Q1_maths_sans_contexte;1;Quelle est la formule de l'aire d'un cercle ?;8.15;4505 Mo;L'aire d'un cercle est égale à pi multiplié par le rayon au carré. Formule mathématique : A = πr²
+v1b_qwen_seul;Q1_maths_sans_contexte;2;Quelle est la formule de l'aire d'un cercle ?;5.46;4502 Mo;L'aire d'un cercle est égale à pi multiplié par le rayon au carré. Formule mathématique : A = π * R^2
+v1b_qwen_seul;Q1_maths_sans_contexte;3;Quelle est la formule de l'aire d'un cercle ?;6.52;4496 Mo;"La formule pour calculer l'aire d'un cercle est donnée par : A = pi * r^2, où ""A"" représente l'aire et ""r"" est le rayon du cercle."
+v1b_qwen_seul;Q2_histgeo_sans_contexte;1;Quelle est la capitale du Sénégal ?;3.54;4490 Mo;La capitale du Sénégal est Dakar.
+v1b_qwen_seul;Q2_histgeo_sans_contexte;2;Quelle est la capitale du Sénégal ?;3.02;4480 Mo;La capitale du Sénégal est Dakar.
+v1b_qwen_seul;Q2_histgeo_sans_contexte;3;Quelle est la capitale du Sénégal ?;2.83;4484 Mo;La capitale du Sénégal est Dakar.
+v1b_qwen_seul;Q3_question_ambigue;1;Je veux la formule du triangle;8.21;4473 Mo;Le triangle est défini par son sommet, ses côtés et les angles inclinés entre eux. Le plus simple est le triangle isocèle, où deux côtés sont de même longueur. Si tu as besoin d'une formule pour un autre type de triangle, je peux essayer d'y répondre.
+v1b_qwen_seul;Q3_question_ambigue;2;Je veux la formule du triangle;6.02;4490 Mo;La formule du triangle rectangle est : A = (b * h) / 2, où b et h sont les longueurs des côtés adjacent au côté sommet.
+v1b_qwen_seul;Q3_question_ambigue;3;Je veux la formule du triangle;8.13;4489 Mo;"L'aire d'un triangle est égale à 1/2 multiplié par le produit du base et de la hauteur. Formule mathématique : 
+
+ \text{Aire} = 1/2 x \text{base} x \text{hauteur}"
+v1b_qwen_seul;Q4_avec_contexte_rag;1;Que retenir de ce cours ?;5.65;4486 Mo;Je n'ai pas reçu de contenu pour répondre à votre question. Pourriez-vous s'il vous plaît indiquer le sujet ou la situation dont il s'agit ?
+v1b_qwen_seul;Q4_avec_contexte_rag;2;Que retenir de ce cours ?;4.89;4488 Mo;Je n'ai pas accès à un historique ou des documents particuliers. Pourrais-tu reformuler ta question avec plus d'informations?
+v1b_qwen_seul;Q4_avec_contexte_rag;3;Que retenir de ce cours ?;7.51;4492 Mo;Je n'ai pas pu trouver de document spécifique à ce sujet. La question se réfère peut-être à un courrier, un message ou à quelque chose d'extraordinaire passé en revue. Pourriez-vous préciser le contexte ?
+v1b_qwen_seul;Q5_question_de_suivi;1;Et pour un cercle ?;4.22;4495 Mo;Pour un cercle, la surface est égale à la valeur circulaire du rayon au carré.
+v1b_qwen_seul;Q5_question_de_suivi;2;Et pour un cercle ?;3.54;4499 Mo;Le périmètre d'un cercle est égal à 2 * pi * rayon.
+v1b_qwen_seul;Q5_question_de_suivi;3;Et pour un cercle ?;3.47;4492 Mo;Un cercle est un polygone de 360 côtés.

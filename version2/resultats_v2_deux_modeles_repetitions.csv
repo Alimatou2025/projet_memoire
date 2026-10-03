@@ -1,0 +1,50 @@
+version;id_question;repetition;question;temps_secondes;ram;reponse
+v2_deux_modeles;Q1_maths_sans_contexte;1;Quelle est la formule de l'aire d'un cercle ?;11.97;4508 Mo;La formule de l'aire d'un cercle est égale à pi multiplié par le rayon au carré, soit A = πr².
+v2_deux_modeles;Q1_maths_sans_contexte;2;Quelle est la formule de l'aire d'un cercle ?;3.43;4488 Mo;A = pi * r^2
+v2_deux_modeles;Q1_maths_sans_contexte;3;Quelle est la formule de l'aire d'un cercle ?;5.19;4493 Mo;La formule de l'aire d'un cercle est A = pi * R^2.
+v2_deux_modeles;Q2_histgeo_sans_contexte;1;Quelle est la capitale du Sénégal ?;5.41;4504 Mo;La capitale du Sénégal est Dakar.
+v2_deux_modeles;Q2_histgeo_sans_contexte;2;Quelle est la capitale du Sénégal ?;3.72;4503 Mo;La capitale du Sénégal est Dakar.
+v2_deux_modeles;Q2_histgeo_sans_contexte;3;Quelle est la capitale du Sénégal ?;3.51;4497 Mo;La capitale du Sénégal est Dakar.
+v2_deux_modeles;Q3_question_ambigue;1;Je veux la formule du triangle;5.12;4509 Mo;"""Triangle rectangle isoscele est équivalent à deux angles d'un octogone."""
+v2_deux_modeles;Q3_question_ambigue;2;Je veux la formule du triangle;5.68;4509 Mo;L'aire d'un triangle est égale à la moitié de son périmètre.
+v2_deux_modeles;Q3_question_ambigue;3;Je veux la formule du triangle;16.92;4528 Mo;"Le triangle rectangle isocèle a des formules mathématiques semblables à celles d'un triangle rectangle non isocèle, mais avec une propriété spécifique. Voici les formules principales :
+
+1. Aire (A) : A = ½ × base × hauteur.
+2. Perimètre (P) : P = ab + c.
+
+où:
+- a et b sont les longueurs des côtés égaux, appelés côtés de base.
+- c est le côté opposé au sommet.
+
+Rappelons que ce triangle possède deux angles droits et un angle isocèle."
+v2_deux_modeles;Q4_avec_contexte_rag;1;Que retenir de ce cours ?;12.24;4525 Mo;"Les principes fondamentaux du cour sont les suivants:
+- Comprendre les bases mathématiques et physico-chimiques.
+- Savoir résoudre des équations simples.
+- Apprendre à manipuler des symboles chimiques.
+- Comprendre le principe de base d'un cycle vital (photoélectricité).
+- Ressasser les théories sur la nature de l'énergie et les changements thermodynamiques."
+v2_deux_modeles;Q4_avec_contexte_rag;2;Que retenir de ce cours ?;24.77;4505 Mo;"Les principales notions abordées dans ce cours sont les suivantes:
+
+1. Méthodes d'analyse
+2. Résolution de problèmes
+3. Étude des fonctions
+4. Intégration et dérivation
+5. Calculs de limites
+
+De plus, nous avons étudié divers thèmes tels que l'approximation numérique et la résolution d'équations différentielles ordinaires.
+
+Pour comprendre cette matière mieux, il est recommandé de:
+1. Revoir régulièrement les méthodes d'analyse utilisées
+2. Pratiquer le calcul des limites et les intégrales
+3. Étudier attentivement les énoncés des exercices
+4. Réfléchir sur la réflexivité envers les solutions de problèmes
+
+Rappelez-vous, une méthode efficace pour comprendre est d'aborder le cours au pas petit et de ne jamais se décourager face aux défis rencontrés."
+v2_deux_modeles;Q4_avec_contexte_rag;3;Que retenir de ce cours ?;10.57;4500 Mo;La rétention du contenu dépendra beaucoup des sujets abordés dans le cours. Certains points importants peuvent inclure les principes fondamentaux, méthodes d'application et explications claires sur la manière de résoudre les problèmes complexes. Il est important également d'être capable d'expliquer ces concepts aux autres personnes sans avoir besoin de recourir à des notes physiques.
+v2_deux_modeles;Q5_question_de_suivi;1;Et pour un cercle ?;14.54;4489 Mo;"Le paramètre R dans l'équation de volume d'un cercle n'est pas utilisé ici. En effet, il s'agit de la courbure radiale du solide et non d'une mesure externe standardisée comme le rayon (R). Le volume total d'un objet peut être exprimé par des constantes indiquant sa géométrie : 
+
+ V = πr^2h 
+
+Où $V$ est l'aire, $r$ est le rayon et $h$ la hauteur."
+v2_deux_modeles;Q5_question_de_suivi;2;Et pour un cercle ?;11.38;4505 Mo;Le cercle est une figure géométrique formée par des points alignés à une distance constante d'un point appelé centre. La circonférence du cercle, qui est la longueur le plus long de sa courbe, est égale à $2 \pi r$, où $r$ est le rayon du cercle (la distance depuis le centre jusqu'à un point du cercle).
+v2_deux_modeles;Q5_question_de_suivi;3;Et pour un cercle ?;9.33;4498 Mo;Un cercle est une figure plane formée par tous les points à une distance constante appelée rayon d'un point fixe, connu comme centre. Cette définition peut être exprimée mathématiquement en disant que tout point sur le cercle a la même distance avec le centre.

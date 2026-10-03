@@ -1,0 +1,12 @@
+version;id_question;question;type_teste;temps_secondes;ram_ollama;reponse
+v2_deux_modeles;Q1_maths_sans_contexte;Quelle est la formule de l'aire d'un cercle ?;Raisonnement scientifique, sans document de cours;15.05;3616 Mo (RAM systeme totale);l'aire d'un cercle est égale à pi multiplié par le rayon au carré.
+v2_deux_modeles;Q2_histgeo_sans_contexte;Quelle est la capitale du Sénégal ?;Connaissance factuelle, sans document de cours;4.75;3580 Mo (RAM systeme totale);La capitale du Sénégal est Dakar.
+v2_deux_modeles;Q3_question_ambigue;Je veux la formule du triangle;Question ouverte/imprécise;7.18;3544 Mo (RAM systeme totale);L'aire d'un triangle est égale à 0,5 multiplié par la base et par la hauteur. Formellement : A = 0.5 * b * h
+v2_deux_modeles;Q4_avec_contexte_rag;Que retenir de ce cours ?;Usage normal, avec un document de cours réellement indexé;5.50;3535 Mo (RAM systeme totale);Que signifie cette phrase ? Aucune explication ou rappel n'a été fourni dans la conversation précédente. Pourriez-vous préciser votre question ?
+v2_deux_modeles;Q5_question_de_suivi;Et pour un cercle ?;Gestion de l'historique de conversation;13.19;3528 Mo (RAM systeme totale);"Un cercle est une figure plane formée par les points qui sont à égale distance d'un point fixe, appelé centre. La circonférence du cercle est la surface extérieure du cercle.
+
+Pour calculer l'aire d'un cercle, nous utilisons la formule suivante :
+
+A = pi * R^2
+
+où 'pi' est approximativement égal à 3,14 et 'R' est le rayon du cercle."

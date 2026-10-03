@@ -1,0 +1,97 @@
+{% extends "base_dashboard.html" %}
+
+{% block titre %}Utilisateurs — Administrateur{% endblock %}
+
+{% block contenu %}
+<div class="barre-superieure">
+    <span class="fil-ariane">Utilisateurs</span>
+</div>
+<div class="conteneur-large">
+
+<div class="entete-page">
+    <h1>Utilisateurs</h1>
+    <p>Liste des enseignants et apprenants de {{ request.user.etablissement.nom|default:"votre établissement" }}.</p>
+</div>
+
+{% if erreur %}
+<p class="message-erreur">{{ erreur }}</p>
+{% endif %}
+
+{% if identifiants_crees %}
+<div class="carte" style="max-width:600px; margin-bottom:1.2rem; border-color:#1e4620; background:#e6f4ea;">
+    <p style="margin-top:0; font-weight:bold; color:#1e4620;">Compte enseignant créé — note ces identifiants maintenant, ils ne seront plus affichés :</p>
+    <p style="margin:0; font-size:1.1em;">
+        Identifiant : <strong>{{ identifiants_crees.username }}</strong><br>
+        Mot de passe : <strong>{{ identifiants_crees.password }}</strong>
+    </p>
+</div>
+{% endif %}
+
+<div class="disposition-2col">
+    <div>
+        <h2 class="titre-section">Membres de l'établissement</h2>
+        <table class="tableau-donnees">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Rôle</th>
+                    <th>Date d'inscription</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in utilisateurs %}
+                <tr>
+                    <td>{{ u.first_name }} {{ u.last_name }}</td>
+                    <td><span class="puce-role {{ u.role }}">{{ u.get_role_display }}</span></td>
+                    <td>{{ u.date_joined|date:"d/m/Y" }}</td>
+                    <td>
+                        {% if u.id != request.user.id %}
+                        <form method="post" onsubmit="return confirm('Supprimer le compte de {{ u.first_name }} {{ u.last_name }} ? Cette action est irréversible.');" style="margin:0;">
+                            {% csrf_token %}
+                            <input type="hidden" name="id_utilisateur" value="{{ u.id }}">
+                            <button type="submit" style="background:none; border:none; color:var(--couleur-erreur); font-size:0.85rem; cursor:pointer; padding:0;">Supprimer</button>
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="4" class="liste-vide">Aucun utilisateur pour le moment.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <h2 class="titre-section">Ajouter un enseignant</h2>
+        <div class="carte">
+            <p style="margin-top:0; font-size:0.85rem; color:var(--couleur-texte-att);">
+                Les enseignants n'ont pas de page d'inscription publique : c'est toi qui crées leur compte ici, avec un mot de passe que tu leur transmets directement.
+            </p>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="creer_enseignant">
+
+                <label for="first_name">Prénom</label>
+                <input type="text" id="first_name" name="first_name" placeholder="Ex : Amadou" required>
+
+                <label for="last_name">Nom</label>
+                <input type="text" id="last_name" name="last_name" placeholder="Ex : Fall" required>
+
+                <label for="username">Identifiant</label>
+                <input type="text" id="username" name="username" placeholder="Ex : amadou.fall" required>
+
+                <label for="email">Email (optionnel)</label>
+                <input type="email" id="email" name="email" placeholder="Ex : amadou@exemple.com">
+
+                <label for="password">Mot de passe provisoire</label>
+                <input type="text" id="password" name="password" placeholder="À transmettre à l'enseignant" required>
+
+                <button type="submit" class="bouton" style="margin-top:0.9rem;">Créer le compte enseignant</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+{% endblock %}

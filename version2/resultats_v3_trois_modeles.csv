@@ -1,0 +1,6 @@
+version;id_question;question;type_teste;temps_secondes;ram_ollama;reponse
+v3_trois_modeles;Q1_maths_sans_contexte;Quelle est la formule de l'aire d'un cercle ?;Raisonnement scientifique, sans document de cours;7.04;3688 Mo (RAM systeme totale);La formule de l'aire d'un cercle est A = pi * R^2.
+v3_trois_modeles;Q2_histgeo_sans_contexte;Quelle est la capitale du Sénégal ?;Connaissance factuelle, sans document de cours;4.77;3676 Mo (RAM systeme totale);La capitale du Sénégal est Dakar.
+v3_trois_modeles;Q3_question_ambigue;Je veux la formule du triangle;Question ouverte/imprécise;5.66;3609 Mo (RAM systeme totale);La formule du triangle rectangle avec un angle droit est : c) a² = b² + c².
+v3_trois_modeles;Q4_avec_contexte_rag;Que retenir de ce cours ?;Usage normal, avec un document de cours réellement indexé;4.43;3587 Mo (RAM systeme totale);Leur étude des réponses aux questions, leur approche méthodique et la résolution des problèmes.
+v3_trois_modeles;Q5_question_de_suivi;Et pour un cercle ?;Gestion de l'historique de conversation;9.25;3578 Mo (RAM systeme totale);Un cercle est un polygone régulier avec une infinité d'angles et de côtés. Son aire est égale à pi multiplié par le rayon au carré, ce qui est aussi la formule de l'aire d'un disque.

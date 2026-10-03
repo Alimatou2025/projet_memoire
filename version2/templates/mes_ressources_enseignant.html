@@ -1,0 +1,267 @@
+{% extends "base_dashboard.html" %}
+
+{% block titre %}Mes ressources — Enseignant{% endblock %}
+
+{% block contenu %}
+<div class="barre-superieure">
+    <span class="fil-ariane">Mes ressources</span>
+</div>
+<div class="conteneur-large">
+
+<div class="entete-page">
+    <h1>Mes ressources</h1>
+    <p>Gère les documents que tu partages avec tes apprenants.</p>
+</div>
+
+<div class="disposition-2col">
+    <div>
+        <h2 class="titre-section">Ressources publiées</h2>
+        <div class="carte">
+            {% for r in ressources %}
+            <div class="mini-carte-ressource">
+                <div>
+                    <strong>{{ r.titre }}</strong><br>
+                    <small style="opacity:0.65;">{{ r.espace.nom }} · {{ r.date_ajout|date:"d/m/Y" }}</small>
+                </div>
+                <div style="display:flex; align-items:center; gap:0.7rem;">
+                    <span class="etiquette">{{ r.get_type_ressource_display }}</span>
+                    <a href="{% url 'modifier_ressource' r.id_ressource %}" style="font-size:0.82rem;">Modifier</a>
+                    <form method="post" action="{% url 'supprimer_ressource' r.id_ressource %}" onsubmit="return confirm('Supprimer « {{ r.titre }} » ? Cette action est irréversible.');" style="display:inline; margin:0;">
+                        {% csrf_token %}
+                        <button type="submit" style="background:none; border:none; color:var(--couleur-erreur); font-size:0.82rem; cursor:pointer; padding:0;">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+            {% empty %}
+            <p class="liste-vide">Vous n'avez pas encore publié de ressource.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div>
+        {% if not espaces %}
+        <h2 class="titre-section">Configurer ton espace de cours</h2>
+        <div class="carte">
+            <p style="margin-top:0; opacity:0.8; font-size:0.9rem;">
+                Avant de publier une ressource, crée un premier espace de cours (ex : « Mathématiques »).
+                {% if not a_etablissement %}Comme c'est ta première fois, indique aussi le nom de ton établissement.{% endif %}
+            </p>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="creer_espace">
+
+                {% if not a_etablissement %}
+                <label for="nom_etablissement">Nom de l'établissement</label>
+                <input type="text" id="nom_etablissement" name="nom_etablissement" placeholder="Ex : Lycée Malick SALL" required>
+                {% endif %}
+
+                <label for="intitule_parcours">Parcours</label>
+                <input type="text" id="intitule_parcours" name="intitule_parcours" placeholder="Ex : Terminale S" required>
+
+                <label for="nom_espace">Espace de cours</label>
+                <input type="text" id="nom_espace" name="nom_espace" placeholder="Ex : Mathématiques" required>
+
+                <button type="submit" class="bouton" style="margin-top:0.9rem;">Créer</button>
+            </form>
+        </div>
+        {% else %}
+        <h2 class="titre-section">Ajouter du contenu</h2>
+        <div class="carte">
+            <div style="display:flex; gap:1.2rem; margin-bottom:1.2rem; border-bottom:1px solid var(--couleur-bordure);">
+                <button type="button" class="bouton-onglet-contenu" data-cible="onglet-document" style="background:none; border:none; border-bottom:2px solid var(--couleur-texte); padding:0.6rem 0.1rem; font-weight:600; cursor:pointer;">Document / Vidéo</button>
+                <button type="button" class="bouton-onglet-contenu" data-cible="onglet-quiz" style="background:none; border:none; border-bottom:2px solid transparent; padding:0.6rem 0.1rem; opacity:0.6; cursor:pointer;">Quiz</button>
+            </div>
+
+            <div id="onglet-document">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="ajouter_ressource">
+
+                <label for="titre">Titre</label>
+                <input type="text" id="titre" name="titre" required>
+
+                <label for="espace">Espace de cours</label>
+                <select id="espace" name="espace" required>
+                    {% for e in espaces %}
+                    <option value="{{ e.id_espace }}">{{ e.nom }} ({{ e.parcours.intitule }})</option>
+                    {% endfor %}
+                </select>
+
+                <label for="niveau_requis">Niveau requis</label>
+                <select id="niveau_requis" name="niveau_requis">
+                    {% for valeur, libelle in niveaux %}
+                    <option value="{{ valeur }}">{{ libelle }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="type_ressource">Type de ressource</label>
+                <select id="type_ressource" name="type_ressource">
+                    <option value="document">Document (PDF, etc.)</option>
+                    <option value="video">Vidéo</option>
+                </select>
+
+                <label for="fichier">Fichier</label>
+                <input type="file" id="fichier" name="fichier">
+
+                <button type="submit" class="bouton" style="margin-top:0.9rem;">+ Publier la ressource</button>
+            </form>
+            </div>
+
+            <div id="onglet-quiz" style="display:none;">
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="ajouter_quiz">
+
+                <label for="titre_quiz">Titre du quiz</label>
+                <input type="text" id="titre_quiz" name="titre_quiz" required>
+
+                <label for="espace_quiz">Espace de cours</label>
+                <select id="espace_quiz" name="espace_quiz" required>
+                    {% for e in espaces %}
+                    <option value="{{ e.id_espace }}">{{ e.nom }} ({{ e.parcours.intitule }})</option>
+                    {% endfor %}
+                </select>
+
+                <label for="niveau_requis_quiz">Niveau requis</label>
+                <select id="niveau_requis_quiz" name="niveau_requis_quiz">
+                    {% for valeur, libelle in niveaux %}
+                    <option value="{{ valeur }}">{{ libelle }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="duree_minutes">Durée (minutes)</label>
+                <input type="number" id="duree_minutes" name="duree_minutes" value="10" min="1">
+
+                <p style="margin-top:1rem; opacity:0.7; font-size:0.85rem;">
+                    Ajoute autant de questions que nécessaire. Clique sur l'entête d'une question pour la replier ou la déplier, et coche le rond à côté de la bonne réponse.
+                </p>
+
+                <div id="liste-questions-quiz"></div>
+
+                <button type="button" id="bouton-ajouter-question" class="bouton-secondaire" style="margin-top:0.8rem;">+ Ajouter une question</button>
+
+                <template id="modele-question-quiz">
+                    <div class="carte-question-quiz" style="border:1px solid var(--couleur-bordure); border-radius:8px; margin-top:0.8rem; overflow:hidden;">
+                        <div class="entete-question-quiz" style="display:flex; align-items:center; justify-content:space-between; padding:0.6rem 0.9rem; background:#f4f6f5; cursor:pointer;">
+                            <span class="titre-question-quiz" style="font-weight:600;">Question</span>
+                            <div style="display:flex; align-items:center; gap:0.8rem;">
+                                <span class="apercu-question-quiz" style="opacity:0.6; font-size:0.85rem; max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"></span>
+                                <button type="button" class="bouton-supprimer-question" style="background:none; border:none; color:var(--couleur-erreur); cursor:pointer; font-size:0.85rem;">Supprimer</button>
+                                <span class="icone-repli">▾</span>
+                            </div>
+                        </div>
+                        <div class="corps-question-quiz" style="padding:0.9rem;">
+                            <label>Énoncé</label>
+                            <input type="text" class="champ-enonce" name="question___NUM__" placeholder="Énoncé de la question">
+
+                            <div style="margin-top:0.5rem; display:flex; flex-direction:column; gap:0.4rem;">
+                                <div style="display:flex; align-items:center; gap:0.5rem;">
+                                    <input type="radio" name="correct___NUM__" value="0" style="width:auto; flex-shrink:0;">
+                                    <input type="text" name="choix___NUM___0" placeholder="Choix 1" style="margin:0;">
+                                </div>
+                                <div style="display:flex; align-items:center; gap:0.5rem;">
+                                    <input type="radio" name="correct___NUM__" value="1" style="width:auto; flex-shrink:0;">
+                                    <input type="text" name="choix___NUM___1" placeholder="Choix 2" style="margin:0;">
+                                </div>
+                                <div style="display:flex; align-items:center; gap:0.5rem;">
+                                    <input type="radio" name="correct___NUM__" value="2" style="width:auto; flex-shrink:0;">
+                                    <input type="text" name="choix___NUM___2" placeholder="Choix 3" style="margin:0;">
+                                </div>
+                                <div style="display:flex; align-items:center; gap:0.5rem;">
+                                    <input type="radio" name="correct___NUM__" value="3" style="width:auto; flex-shrink:0;">
+                                    <input type="text" name="choix___NUM___3" placeholder="Choix 4" style="margin:0;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-top:1.2rem; padding:0.8rem 0; border-top:1px solid var(--couleur-bordure);">
+                    <span id="compteur-questions-quiz" style="opacity:0.7; font-size:0.9rem;">0 question</span>
+                    <button type="submit" class="bouton">+ Créer le quiz</button>
+                </div>
+            </form>
+            </div>
+
+            <script>
+            (function() {
+                var boutonsOnglets = document.querySelectorAll(".bouton-onglet-contenu");
+                boutonsOnglets.forEach(function(bouton) {
+                    bouton.addEventListener("click", function() {
+                        boutonsOnglets.forEach(function(b) {
+                            b.style.borderBottomColor = "transparent";
+                            b.style.opacity = "0.6";
+                            b.style.fontWeight = "400";
+                        });
+                        bouton.style.borderBottomColor = "var(--couleur-texte)";
+                        bouton.style.opacity = "1";
+                        bouton.style.fontWeight = "600";
+
+                        document.getElementById("onglet-document").style.display = "none";
+                        document.getElementById("onglet-quiz").style.display = "none";
+                        document.getElementById(bouton.getAttribute("data-cible")).style.display = "";
+                    });
+                });
+
+                var liste = document.getElementById("liste-questions-quiz");
+                var modele = document.getElementById("modele-question-quiz");
+                var boutonAjouter = document.getElementById("bouton-ajouter-question");
+                var compteur = document.getElementById("compteur-questions-quiz");
+
+                function renumeroter() {
+                    var blocs = liste.querySelectorAll(".carte-question-quiz");
+                    blocs.forEach(function(bloc, index) {
+                        var num = index + 1;
+                        bloc.querySelectorAll("[data-modele-name]").forEach(function(champ) {
+                            champ.setAttribute("name", champ.getAttribute("data-modele-name").replace("__NUM__", num));
+                        });
+                        bloc.querySelector(".titre-question-quiz").textContent = "Question " + num;
+                        var btnSupprimer = bloc.querySelector(".bouton-supprimer-question");
+                        btnSupprimer.style.display = blocs.length > 1 ? "" : "none";
+                    });
+                    compteur.textContent = blocs.length + (blocs.length > 1 ? " questions" : " question");
+                }
+
+                function ajouterQuestion() {
+                    var fragment = modele.content.cloneNode(true);
+                    var bloc = fragment.querySelector(".carte-question-quiz");
+
+                    bloc.querySelectorAll("[name]").forEach(function(champ) {
+                        champ.setAttribute("data-modele-name", champ.getAttribute("name"));
+                    });
+
+                    bloc.querySelector(".entete-question-quiz").addEventListener("click", function(e) {
+                        if (e.target.classList.contains("bouton-supprimer-question")) return;
+                        var corps = bloc.querySelector(".corps-question-quiz");
+                        var icone = bloc.querySelector(".icone-repli");
+                        var replie = corps.style.display === "none";
+                        corps.style.display = replie ? "" : "none";
+                        icone.textContent = replie ? "▾" : "▸";
+                    });
+
+                    bloc.querySelector(".bouton-supprimer-question").addEventListener("click", function() {
+                        bloc.remove();
+                        renumeroter();
+                    });
+
+                    bloc.querySelector(".champ-enonce").addEventListener("input", function() {
+                        bloc.querySelector(".apercu-question-quiz").textContent = this.value;
+                    });
+
+                    liste.appendChild(bloc);
+                    renumeroter();
+                }
+
+                boutonAjouter.addEventListener("click", ajouterQuestion);
+
+                ajouterQuestion();
+                ajouterQuestion();
+                ajouterQuestion();
+            })();
+            </script>
+        </div>
+        {% endif %}
+    </div>
+</div>
+</div>
+{% endblock %}

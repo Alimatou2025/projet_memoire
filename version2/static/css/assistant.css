@@ -1,0 +1,349 @@
+/* --- Bouton Flottant (FAB) --- */
+.fab-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #007b3e, #00a352);
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    z-index: 999;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fab-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Drawer Principal Gemini --- */
+.assistant-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 420px;
+    height: 100vh;
+    background: #ffffff;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    display: flex;
+    flex-direction: row;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.assistant-drawer.closed {
+    transform: translateX(100%);
+}
+
+/* --- Sidebar Historique dans le Drawer --- */
+.sidebar-history {
+    width: 220px;
+    background: #f0f4f9;
+    border-right: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    transition: width 0.2s ease, opacity 0.2s ease;
+    overflow: hidden;
+}
+
+.assistant-drawer.sidebar-closed .sidebar-history {
+    width: 0;
+    opacity: 0;
+    border-right: none;
+}
+
+.chat-main-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100%;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    gap: 8px;
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    color: #5f6368;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+.btn-icon:hover {
+    background: #e1e5ea;
+}
+
+.btn-new-chat {
+    flex: 1;
+    padding: 8px 12px;
+    background: #dde3ea;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #444746;
+    font-weight: 500;
+    transition: background 0.2s ease;
+}
+
+.btn-new-chat:hover {
+    background: #c7d1db;
+}
+
+.sidebar-content {
+    padding: 8px 12px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.section-title {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #747775;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 8px 4px;
+    display: block;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.history-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    color: #1f1f1f;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: background 0.2s ease;
+}
+
+.history-item:hover {
+    background: #e1e5ea;
+}
+
+.history-item.active {
+    background: #e8f5ee;
+    font-weight: 600;
+}
+
+/* --- Header du Chat --- */
+.drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+    background: #ffffff;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.drawer-header .title {
+    font-weight: 600;
+    color: #1f1f1f;
+    font-size: 1.05rem;
+}
+
+/* --- Messages --- */
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: #ffffff;
+}
+
+.message {
+    max-width: 85%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.message.user {
+    align-self: flex-end;
+    background: #f0f4f9;
+    color: #1f1f1f;
+    border-bottom-right-radius: 4px;
+}
+
+.message.ia {
+    align-self: flex-start;
+    background: #f8f9fa;
+    color: #1f1f1f;
+    border-bottom-left-radius: 4px;
+    border: 1px solid #f0f0f0;
+}
+
+/* --- Indicateur Typing --- */
+.typing span {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: #9aa0a6;
+    border-radius: 50%;
+    margin: 0 2px;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.typing span:nth-child(2) { animation-delay: 0.2s; }
+.typing span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}
+
+/* --- Formulaire de Saisie --- */
+.chat-form-container {
+    padding: 12px 16px;
+    background: #ffffff;
+    border-top: 1px solid #eee;
+}
+
+.file-preview {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #e8f5ee;
+    color: #007b3e;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+}
+
+.file-preview button {
+    background: none;
+    border: none;
+    color: #007b3e;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.input-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f0f4f9;
+    border-radius: 24px;
+    padding: 6px 12px;
+}
+
+.input-box textarea {
+    flex: 1;
+    border: none;
+    background: transparent;
+    resize: none;
+    outline: none;
+    font-size: 0.9rem;
+    max-height: 80px;
+    font-family: inherit;
+    padding: 4px 0;
+}
+
+.add-btn, .send-btn {
+    background: none;
+    border: none;
+    color: #5f6368;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-btn:hover, .send-btn:hover {
+    background: #e1e5ea;
+    color: #007b3e;
+}
+.history-rename-input {
+    width: 100%;
+    border: 1px solid #007b3e;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    outline: none;
+}
+
+/* --- Adaptation mobile --- */
+/* Sur petit écran, le drawer 420px + sidebar 220px dépassait déjà la largeur
+   de l'écran, écrasant les deux colonnes l'une contre l'autre. On fait
+   plutôt occuper au drawer toute la largeur de l'écran, et la sidebar
+   devient un panneau qui glisse PAR-DESSUS le chat (comme une vraie appli
+   mobile) au lieu de partager l'espace en permanence avec lui. */
+@media (max-width: 600px) {
+    .assistant-drawer {
+        width: 100vw;
+    }
+
+    .sidebar-history {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 85vw;
+        max-width: 320px;
+        z-index: 10;
+        box-shadow: 2px 0 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .assistant-drawer.sidebar-closed .sidebar-history {
+        width: 0;
+        box-shadow: none;
+    }
+
+    .chat-main-area {
+        width: 100%;
+    }
+
+    .message {
+        max-width: 90%;
+    }
+}

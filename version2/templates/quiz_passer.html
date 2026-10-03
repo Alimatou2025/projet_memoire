@@ -1,0 +1,37 @@
+{% extends "base_dashboard.html" %}
+
+{% block titre %}{{ ressource.titre }} — Quiz{% endblock %}
+
+{% block contenu %}
+<div class="barre-superieure">
+    <span class="fil-ariane">Mes ressources / Quiz</span>
+</div>
+<div class="conteneur">
+
+<div class="entete-page">
+    <h1>{{ ressource.titre }}</h1>
+    <p>{{ quiz.nombre_questions }} question{{ quiz.nombre_questions|pluralize }} · environ {{ quiz.duree_minutes }} min</p>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    {% for question in questions %}
+    <div class="carte" style="margin-bottom:1rem;">
+        <p style="margin-top:0; font-weight:600;">{{ forloop.counter }}. {{ question.enonce }}</p>
+        {% for c in question.choix.all %}
+        <label style="display:flex; align-items:center; gap:0.6rem; font-weight:400; margin-top:0.5rem;">
+            <input type="radio" name="question_{{ question.id_question }}" value="{{ c.id_choix }}" required style="width:auto;">
+            {{ c.texte }}
+        </label>
+        {% endfor %}
+    </div>
+    {% empty %}
+    <p class="liste-vide">Ce quiz n'a pas encore de questions.</p>
+    {% endfor %}
+
+    {% if questions %}
+    <button type="submit" class="bouton">Valider mes réponses</button>
+    {% endif %}
+</form>
+</div>
+{% endblock %}

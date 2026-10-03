@@ -1,0 +1,38 @@
+{% extends "base_dashboard.html" %}
+
+{% block titre %}Mon compte — Changer mon mot de passe{% endblock %}
+
+{% block contenu %}
+<div class="barre-superieure">
+    <span class="fil-ariane">Mon compte</span>
+</div>
+<div class="conteneur-large">
+
+<div class="entete-page">
+    <h1>Changer mon mot de passe</h1>
+    <p>Connecté en tant que {{ request.user.first_name }} {{ request.user.last_name }} ({{ request.user.get_role_display }}).</p>
+</div>
+
+{% if erreur %}
+<p class="message-erreur">{{ erreur }}</p>
+{% endif %}
+
+<div class="carte" style="max-width:420px;">
+    <form method="post">
+        {% csrf_token %}
+
+        <label for="ancien_mot_de_passe">Mot de passe actuel</label>
+        <input type="password" id="ancien_mot_de_passe" name="ancien_mot_de_passe" required>
+
+        <label for="nouveau_mot_de_passe">Nouveau mot de passe</label>
+        <input type="password" id="nouveau_mot_de_passe" name="nouveau_mot_de_passe" required>
+
+        <label for="confirmation_mot_de_passe">Confirme le nouveau mot de passe</label>
+        <input type="password" id="confirmation_mot_de_passe" name="confirmation_mot_de_passe" required>
+
+        <button type="submit" class="bouton" style="margin-top:0.9rem;">Changer mon mot de passe</button>
+    </form>
+</div>
+
+</div>
+{% endblock %}

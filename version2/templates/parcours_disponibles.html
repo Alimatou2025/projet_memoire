@@ -1,0 +1,49 @@
+{% extends "base_dashboard.html" %}
+
+{% block titre %}Parcours{% endblock %}
+
+{% block contenu %}
+<div class="barre-superieure">
+    <span class="fil-ariane">Parcours</span>
+</div>
+<div class="conteneur-large">
+
+<div class="entete-page">
+    <h1>Parcours</h1>
+    <p>Inscris-toi à un parcours pour voir apparaître ses ressources et ses quiz.</p>
+</div>
+
+<div class="disposition-2col">
+    <div>
+        <h2 class="titre-section">Parcours disponibles</h2>
+        <div class="carte">
+            {% for p in parcours_disponibles %}
+            <div class="mini-carte-ressource">
+                <span>{{ p.intitule }}</span>
+                <form method="post" style="margin:0;">
+                    {% csrf_token %}
+                    <input type="hidden" name="parcours" value="{{ p.id_parcours }}">
+                    <button type="submit" class="bouton bouton-secondaire" style="padding:0.3rem 0.8rem; font-size:0.8rem;">S'inscrire</button>
+                </form>
+            </div>
+            {% empty %}
+            <p class="liste-vide">Tu es déjà inscrit à tous les parcours disponibles.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div>
+        <h2 class="titre-section">Mes parcours</h2>
+        <div class="carte">
+            {% for insc in mes_parcours %}
+            <div class="mini-carte-ressource">
+                <span>{{ insc.parcours.intitule }}</span>
+            </div>
+            {% empty %}
+            <p class="liste-vide">Tu n'es inscrit à aucun parcours pour l'instant.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

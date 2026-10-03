@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titre %}Inscription — Plateforme pédagogique{% endblock %}
+
+{% block contenu %}
+<div class="carte carte-inscription">
+    <h2>Créer mon compte apprenant</h2>
+    <p class="sous-titre">Renseigne le code donné par ton établissement, puis tes informations.</p>
+
+    {% if erreur %}
+        <div class="message-erreur">{{ erreur }}</div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label for="code_etablissement">Code de l'établissement</label>
+        <input type="text" id="code_etablissement" name="code_etablissement" placeholder="Donné par ton établissement" style="text-transform:uppercase;" required>
+
+        <label for="first_name">Prénom</label>
+        <input type="text" id="first_name" name="first_name" required>
+
+        <label for="last_name">Nom</label>
+        <input type="text" id="last_name" name="last_name" required>
+
+        <label for="username">Identifiant</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email">
+
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit" class="bouton">Créer mon compte</button>
+    </form>
+
+    <p class="lien-inscription">
+        Déjà un compte ? <a href="{% url 'connexion' %}">Connecte-toi</a>
+    </p>
+</div>
+{% endblock %}

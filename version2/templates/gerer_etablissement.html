@@ -1,0 +1,62 @@
+{% extends "base_dashboard.html" %}
+
+{% block titre %}Gérer l'établissement — Administrateur{% endblock %}
+
+{% block contenu %}
+<div class="barre-superieure">
+    <span class="fil-ariane">Établissement</span>
+</div>
+<div class="conteneur-large">
+
+<div class="entete-page">
+    <h1>Mon établissement</h1>
+    <p>{% if etablissement %}Consulte et modifie{% else %}Crée{% endif %} les informations de ton établissement.</p>
+</div>
+
+{% if erreur %}
+<p class="message-erreur">{{ erreur }}</p>
+{% endif %}
+
+<div class="carte" style="max-width:480px;">
+
+    {% if etablissement %}
+    <div id="vue-consultation">
+        <p style="margin:0 0 0.3rem;"><strong>Nom de l'établissement</strong><br>{{ etablissement.nom }}</p>
+        <p style="margin:0 0 1rem;"><strong>Localité</strong><br>{{ etablissement.localite|default:"—" }}</p>
+        <button type="button" class="bouton" onclick="document.getElementById('vue-consultation').style.display='none'; document.getElementById('vue-edition').style.display='block';">
+            Modifier
+        </button>
+    </div>
+
+    <div style="margin-top:1.2rem; padding-top:1.2rem; border-top:1px solid var(--couleur-bordure, #e3ddd2);">
+        <p style="margin:0 0 0.3rem; font-size:0.9em; opacity:0.8;">Code d'inscription à communiquer à tes élèves :</p>
+        <p style="margin:0; font-size:1.3em; font-weight:bold; letter-spacing:0.1em;">{{ etablissement.code_inscription }}</p>
+    </div>
+    {% endif %}
+
+    <div id="vue-edition" style="{% if etablissement %}display:none;{% endif %}">
+        <form method="post">
+            {% csrf_token %}
+
+            <label for="nom">Nom de l'établissement</label>
+            <input type="text" id="nom" name="nom" value="{{ etablissement.nom|default:'' }}" placeholder="Ex : Lycée Malick SALL" required>
+
+            <label for="localite">Localité</label>
+            <input type="text" id="localite" name="localite" value="{{ etablissement.localite|default:'' }}" placeholder="Ex : Dakar">
+
+            <button type="submit" class="bouton" style="margin-top:0.9rem;">
+                {% if etablissement %}Enregistrer{% else %}Créer l'établissement{% endif %}
+            </button>
+            {% if etablissement %}
+            <button type="button" class="bouton-secondaire" style="margin-top:0.9rem;" onclick="document.getElementById('vue-edition').style.display='none'; document.getElementById('vue-consultation').style.display='block';">
+                Annuler
+            </button>
+            {% endif %}
+        </form>
+    </div>
+
+</div>
+
+
+</div>
+{% endblock %}

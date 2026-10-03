@@ -1,0 +1,95 @@
+{% extends "base_dashboard.html" %}
+
+{% block titre %}Tableau de bord — Enseignant{% endblock %}
+
+{% block contenu %}
+<div class="barre-superieure">
+    <span class="fil-ariane">Tableau de bord</span>
+</div>
+<div class="conteneur-large">
+
+<div class="entete-page">
+    <h1>Bonjour {{ request.user.first_name }} 👋</h1>
+    <p>{{ request.user.profil_enseignant.matiere_principale|default:"Votre espace enseignant" }}</p>
+</div>
+
+<div class="grille-stats">
+    <div class="carte-stat">
+        <div><span class="valeur">{{ nombre_ressources|default:"0" }}</span><span class="libelle">Ressources publiées</span></div>
+        <div class="icone-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"/></svg></div>
+    </div>
+    <div class="carte-stat">
+        <div><span class="valeur">{{ nombre_apprenants|default:"0" }}</span><span class="libelle">Apprenants suivis</span></div>
+        <div class="icone-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+    </div>
+    <div class="carte-stat">
+        <div><span class="valeur">{{ moyenne_classe|floatformat:2|default:"—" }}</span><span class="libelle">Moyenne de la classe</span></div>
+        <div class="icone-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
+    </div>
+</div>
+
+<div class="disposition-2col">
+    <div>
+        <h2 class="titre-section">Mes ressources</h2>
+        <div class="carte">
+            {% for r in ressources %}
+            <div class="mini-carte-ressource">
+                <div>
+                    <strong>{{ r.titre }}</strong><br>
+                    <small style="opacity:0.65;">{{ r.espace.nom }} · {{ r.date_ajout|date:"d/m/Y" }}</small>
+                </div>
+                <span class="etiquette">{{ r.get_type_ressource_display }}</span>
+            </div>
+            {% empty %}
+            <p class="liste-vide">Vous n'avez pas encore publié de ressource.</p>
+            {% endfor %}
+        </div>
+        <a href="{% url 'mes_ressources' %}" class="bouton" style="margin-top:1rem;">+ Ajouter une ressource</a>
+    </div>
+
+    <div>
+        <h2 class="titre-section">Derniers résultats</h2>
+        <table class="tableau-donnees">
+            <thead>
+                <tr><th>Apprenant</th><th>Note</th></tr>
+            </thead>
+            <tbody>
+                {% for e in dernieres_evaluations %}
+                <tr>
+                    <td>{{ e.apprenant.utilisateur.first_name }}</td>
+                    <td>{{ e.note }}/20</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="2" class="liste-vide">Aucune évaluation.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2 class="titre-section">Mes apprenants</h2>
+        <table class="tableau-donnees">
+            <thead>
+                                <tr><th>Apprenant</th><th>Niveau</th><th>Moyenne</th><th>Répartition</th></tr>
+            </thead>
+            <tbody>
+                {% for a in apprenants %}
+                                                <tr>
+                    <td>{{ a.utilisateur.first_name }} {{ a.utilisateur.last_name }}</td>
+                    <td><span class="etiquette">{{ a.get_niveau_display }}</span></td>
+                    <td>{{ a.statistiques.moyenne_generale|default:"—" }}</td>
+                    <td style="font-size:0.85em;">
+                        {% if a.statistiques %}
+                        D {{ a.statistiques.degre_debutant }}% · M {{ a.statistiques.degre_moyen }}% · E {{ a.statistiques.degre_excellent }}%
+                        {% else %}
+                        —
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="3" class="liste-vide">Aucun apprenant pour l'instant.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+{% endblock %}

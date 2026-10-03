@@ -1,0 +1,44 @@
+{% extends "base_dashboard.html" %}
+
+{% block titre %}Mes ressources — Apprenant{% endblock %}
+
+{% block contenu %}
+<div class="barre-superieure">
+    <span class="fil-ariane">Mes ressources</span>
+</div>
+<div class="conteneur-large">
+
+<div class="entete-page">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:0.8rem;">
+        <div>
+            <h1>Mes ressources</h1>
+            <p>Les documents, vidéos et quiz disponibles dans tes parcours.</p>
+        </div>
+        <a href="{% url 'parcours_disponibles' %}" class="bouton bouton-secondaire">Mes parcours</a>
+    </div>
+</div>
+
+<div class="carte">
+    {% for r in ressources %}
+    <div class="mini-carte-ressource">
+        <div>
+            <strong>{{ r.titre }}</strong><br>
+            <small style="opacity:0.65;">{{ r.espace.nom }} · {{ r.date_ajout|date:"d/m/Y" }}</small>
+        </div>
+        <div style="display:flex; align-items:center; gap:0.6rem;">
+            <span class="etiquette">{{ r.get_type_ressource_display }}</span>
+            {% if r.type_ressource == "quiz" %}
+            <a href="{% url 'passer_quiz' r.id_ressource %}" class="bouton" style="padding:0.3rem 0.8rem; font-size:0.8rem;">Passer</a>
+            {% elif r.type_ressource == "document" and r.document.fichier %}
+            <a href="{{ r.document.fichier.url }}" target="_blank" class="bouton bouton-secondaire" style="padding:0.3rem 0.8rem; font-size:0.8rem;">Ouvrir</a>
+            {% elif r.type_ressource == "video" and r.video.fichier %}
+            <a href="{{ r.video.fichier.url }}" target="_blank" class="bouton bouton-secondaire" style="padding:0.3rem 0.8rem; font-size:0.8rem;">Regarder</a>
+            {% endif %}
+        </div>
+    </div>
+    {% empty %}
+    <p class="liste-vide">Aucune ressource disponible pour l'instant. Inscris-toi à un parcours pour en voir apparaître ici.</p>
+    {% endfor %}
+</div>
+</div>
+{% endblock %}

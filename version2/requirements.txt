@@ -1,0 +1,9 @@
+django
+requests
+chromadb
+pypdf
+ftfy
+scikit-learn
+numpy
+pandas
+scikit-fuzzy

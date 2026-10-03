@@ -1,0 +1,158 @@
+{% extends "base_dashboard.html" %}
+
+{% block titre %}LIA{% endblock %}
+
+{% block contenu %}
+<div class="barre-superieure">
+    <span class="fil-ariane">LIA</span>
+</div>
+
+<div class="conteneur-large">
+    <div class="entete-page">
+        <div style="display:flex; align-items:center; gap:0.9rem;">
+            <button type="button" id="bouton-hamburger" class="bouton-hamburger" title="Afficher/masquer l'historique" aria-label="Afficher ou masquer l'historique">
+                <span></span><span></span><span></span>
+            </button>
+            <div>
+                <h1 style="margin-bottom:0.2rem;">LIA 🤖</h1>
+                <p style="margin-bottom:0;">Pose une question sur un cours, l'assistant répond à partir des documents indexés.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="disposition-chat">
+        <aside class="historique-lateral" id="historique-lateral">
+            <form method="post" style="margin-bottom:1rem;">
+                {% csrf_token %}
+                <input type="hidden" name="nouvelle_conversation" value="1">
+                <button type="submit" class="bouton bouton-secondaire" style="width:100%;">+ Nouvelle conversation</button>
+            </form>
+
+            <h2 class="titre-section" style="margin-top:0;">Historique</h2>
+            {% if historique_recent %}
+            <ul class="liste-historique">
+                {% for conv in historique_recent %}
+                <li>
+                    <a href="{% url 'assistant_ia' %}?revenir=1&conversation={{ conv.conversation_id }}">
+                        <span class="question-historique">{{ conv.premiere_question|truncatechars:42 }}</span>
+                        <span class="date-historique">{{ conv.derniere_date|date:"d/m à H:i" }} · {{ conv.nombre_echanges }} échange{{ conv.nombre_echanges|pluralize }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="liste-vide" style="padding:1rem 0;">Aucune conversation pour l'instant.</p>
+            {% endif %}
+        </aside>
+
+        <div class="carte carte-chat">
+            <div class="zone-messages">
+                <div class="bulle-assistant">
+                    Bonjour {{ request.user.first_name }} 👋 Pose-moi une question sur un de tes cours.
+                </div>
+
+                {% for echange in historique %}
+                <div id="echange-{{ echange.id_echange }}">
+                    <div class="bulle-utilisateur">
+                        {{ echange.question }}
+                        {% if echange.ressource %}<br><small style="opacity:0.8;">📎 {{ echange.ressource.titre }}</small>{% endif %}
+                        {% if echange.document_joint %}<br><small style="opacity:0.8;">📄 {{ echange.document_joint.name|slice:"14:" }}</small>{% endif %}
+                    </div>
+                    <div class="bulle-assistant">
+                        {{ echange.reponse|linebreaks }}
+                        {% if echange.temps_reponse_secondes %}<small class="etiquette-modele">⏱ {{ echange.temps_reponse_secondes }} s</small>{% endif %}
+                    </div>
+                </div>
+                {% empty %}
+                {% endfor %}
+            </div>
+
+            <form method="post" enctype="multipart/form-data" class="zone-saisie-chat">
+                {% csrf_token %}
+                <input type="hidden" name="conversation_id" value="{{ conversation_active }}">
+
+                {% if ressources_disponibles %}
+                <div class="import-cours">
+                    <select id="ressource" name="ressource">
+                        <option value="">Question générale (sans cours précis)</option>
+                        {% for r in ressources_disponibles %}
+                        <option value="{{ r.id_ressource }}">{{ r.titre }}{% if r.espace %} — {{ r.espace.nom }}{% endif %}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endif %}
+
+                <div class="ligne-envoi-chat">
+                    <label for="document_joint" class="bouton-plus" title="Importer un document à expliquer">+</label>
+                    <input type="file" id="document_joint" name="document_joint" class="entree-fichier-cachee"
+                           onchange="document.getElementById('nom-fichier-choisi').textContent = this.files[0] ? this.files[0].name : '';">
+                    <input type="text" name="question" placeholder="Écris ta question ici...">
+                    <button type="submit" class="bouton">Envoyer</button>
+                </div>
+                <small id="nom-fichier-choisi" class="nom-fichier-choisi"></small>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+(function () {
+    var zoneMessages = document.querySelector('.zone-messages');
+    var form = document.querySelector('.zone-saisie-chat');
+
+    if (zoneMessages) {
+        zoneMessages.scrollTop = zoneMessages.scrollHeight;
+    }
+
+    var boutonHamburger = document.getElementById('bouton-hamburger');
+    var historiqueLateral = document.getElementById('historique-lateral');
+    if (boutonHamburger && historiqueLateral) {
+        boutonHamburger.addEventListener('click', function () {
+            historiqueLateral.classList.toggle('ouverte');
+        });
+    }
+
+    if (form && zoneMessages) {
+        form.addEventListener('submit', function (evenement) {
+            var question = form.question.value.trim();
+            var fichierInput = document.getElementById('document_joint');
+            var unFichier = fichierInput && fichierInput.files.length > 0;
+
+            if (!question && !unFichier) {
+                return; // rien à envoyer, on laisse le navigateur gérer le "required"
+            }
+
+            evenement.preventDefault();
+
+            // Affiche tout de suite la question de l'apprenant, sans
+            // attendre la réponse (qui peut prendre plusieurs secondes).
+            var bulleQuestion = document.createElement('div');
+            bulleQuestion.className = 'bulle-utilisateur';
+            bulleQuestion.textContent = question || ('Peux-tu m\'expliquer ce document : ' + (unFichier ? fichierInput.files[0].name : '') + ' ?');
+            zoneMessages.appendChild(bulleQuestion);
+
+            var bulleAttente = document.createElement('div');
+            bulleAttente.className = 'bulle-assistant bulle-en-train-decrire';
+            bulleAttente.innerHTML = '<span></span><span></span><span></span>';
+            zoneMessages.appendChild(bulleAttente);
+            zoneMessages.scrollTop = zoneMessages.scrollHeight;
+
+            var boutonEnvoyer = form.querySelector('button[type="submit"]');
+            if (boutonEnvoyer) {
+                boutonEnvoyer.disabled = true;
+            }
+
+            setTimeout(function () {
+                // On envoie D'ABORD le formulaire avec sa vraie valeur,
+                // puis seulement APRÈS on vide visuellement le champ —
+                // sinon la question envoyée serait vide.
+                HTMLFormElement.prototype.submit.call(form);
+                form.question.value = '';
+                if (fichierInput) { fichierInput.value = ''; }
+                document.getElementById('nom-fichier-choisi').textContent = '';
+            }, 900);
+        });
+    }
+})();
+</script>
+{% endblock %}

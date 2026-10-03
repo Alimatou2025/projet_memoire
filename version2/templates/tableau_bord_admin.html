@@ -1,0 +1,80 @@
+{% extends "base_dashboard.html" %}
+
+{% block titre %}Tableau de bord — Administrateur{% endblock %}
+
+{% block contenu %}
+<div class="barre-superieure">
+    <span class="fil-ariane">Tableau de bord</span>
+</div>
+<div class="conteneur-large">
+<div class="entete-page">
+    <h1>Bonjour {{ request.user.first_name }}</h1>
+    <p>Vue d'ensemble de {{ request.user.etablissement.nom|default:"votre établissement" }}</p>
+</div>
+
+<div class="grille-stats">
+    <div class="carte-stat">
+        <div><span class="valeur">{{ nombre_utilisateurs|default:"0" }}</span><span class="libelle">Utilisateurs</span></div>
+        <div class="icone-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+    </div>
+    <div class="carte-stat">
+        <div><span class="valeur">{{ nombre_parcours|default:"0" }}</span><span class="libelle">Parcours</span></div>
+        <div class="icone-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg></div>
+    </div>
+    <div class="carte-stat">
+        <div><span class="valeur">{{ nombre_ressources|default:"0" }}</span><span class="libelle">Ressources</span></div>
+        <div class="icone-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"/></svg></div>
+    </div>
+    <div class="carte-stat">
+        <div><span class="valeur">{{ nombre_echanges_ia|default:"0" }}</span><span class="libelle">Échanges avec l'IA</span></div>
+        <div class="icone-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 10h.01M16 10h.01M9 15c.7.6 1.8 1 3 1s2.3-.4 3-1"/></svg></div>
+    </div>
+</div>
+
+<h2 class="titre-section">Derniers utilisateurs inscrits</h2>
+<table class="tableau-donnees">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Rôle</th>
+            <th>Établissement</th>
+            <th>Date d'inscription</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for u in derniers_utilisateurs %}
+        <tr>
+            <td>{{ u.first_name }} {{ u.last_name }}</td>
+            <td><span class="puce-role {{ u.role }}">{{ u.get_role_display }}</span></td>
+            <td>{{ u.etablissement.nom|default:"—" }}</td>
+            <td>{{ u.date_joined|date:"d/m/Y" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4" class="liste-vide">Aucun utilisateur pour le moment.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2 class="titre-section">Parcours de l'établissement</h2>
+<table class="tableau-donnees">
+    <thead>
+        <tr>
+            <th>Intitulé</th>
+            <th>Nombre d'espaces</th>
+            <th>Nombre d'inscrits</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in parcours_liste %}
+        <tr>
+            <td>{{ p.intitule }}</td>
+            <td>{{ p.espaces.count }}</td>
+            <td>{{ p.inscriptions.count }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3" class="liste-vide">Aucun parcours créé pour le moment.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 420" width="500" height="420">
+  <defs>
+    <style>
+      .peau { fill: #E3B98C; }
+      .peau-ombre { fill: #D1A578; }
+      .cheveux { fill: #2C3B35; }
+      .haut { fill: #8B7355; }
+      .haut-ombre { fill: #745F45; }
+      .pantalon { fill: #2C3B35; }
+      .chaise { fill: #C9B79C; }
+      .bureau { fill: #A68B6B; }
+      .bureau-dessus { fill: #BFA37F; }
+      .papier { fill: #FFFFFF; stroke: #E0D8C8; stroke-width: 1.5; }
+      .ligne-texte { stroke: #C9BBA0; stroke-width: 2.5; stroke-linecap: round; }
+      .fond-cercle { fill: #EFE7D6; }
+      .accent { fill: #4C7A5E; }
+      .contour { stroke: #2C3B35; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+    </style>
+  </defs>
+  <circle cx="250" cy="210" r="200" class="fond-cercle" />
+  <ellipse cx="255" cy="378" rx="150" ry="14" fill="#2C3B35" opacity="0.08" />
+  <rect x="150" y="300" width="10" height="70" class="chaise" />
+  <rect x="330" y="300" width="10" height="70" class="chaise" />
+  <rect x="140" y="290" width="210" height="14" rx="4" class="chaise" />
+  <rect x="140" y="180" width="14" height="120" rx="4" class="chaise" />
+  <path d="M 205 300 L 205 355 Q 205 365 215 365 L 235 365 Q 240 365 238 358 L 225 302 Z" class="pantalon" />
+  <path d="M 285 300 L 285 355 Q 285 365 275 365 L 255 365 Q 250 365 252 358 L 265 302 Z" class="pantalon" />
+  <ellipse cx="222" cy="366" rx="20" ry="9" class="cheveux" />
+  <ellipse cx="268" cy="366" rx="20" ry="9" class="cheveux" />
+  <rect x="80" y="255" width="340" height="16" rx="4" class="bureau" />
+  <rect x="80" y="248" width="340" height="10" rx="4" class="bureau-dessus" />
+  <rect x="100" y="271" width="16" height="75" class="bureau" />
+  <rect x="384" y="271" width="16" height="75" class="bureau" />
+  <g transform="translate(0,-4)">
+    <rect x="175" y="215" width="150" height="44" rx="5" class="papier" />
+    <line x1="250" y1="218" x2="250" y2="256" stroke="#E0D8C8" stroke-width="1.5" />
+    <line x1="188" y1="228" x2="238" y2="228" class="ligne-texte" />
+    <line x1="188" y1="238" x2="230" y2="238" class="ligne-texte" />
+    <line x1="188" y1="248" x2="220" y2="248" class="ligne-texte" />
+    <line x1="262" y1="228" x2="312" y2="228" class="ligne-texte" />
+    <line x1="262" y1="238" x2="300" y2="238" class="ligne-texte" />
+  </g>
+  <path d="M 210 150
+           Q 205 140 218 132
+           Q 250 118 285 132
+           Q 298 140 293 150
+           L 300 245
+           Q 300 255 288 255
+           L 215 255
+           Q 203 255 205 245 Z" class="haut contour" />
+  <path d="M 210 150 Q 205 140 218 132 Q 235 126 250 127 L 245 255 L 215 255 Q 203 255 205 245 Z" class="haut-ombre" opacity="0.5" />
+  <path d="M 233 132 Q 250 148 268 132 L 262 122 Q 250 132 238 122 Z" class="peau-ombre" />
+  <path d="M 218 150 Q 185 165 190 210 Q 192 222 205 222 L 218 222 Q 224 222 222 212 L 214 165 Z" class="haut contour" />
+  <circle cx="205" cy="220" r="13" class="peau contour" />
+  <path d="M 282 150 Q 320 168 305 205 Q 300 218 288 214 L 275 195 L 280 160 Z" class="haut contour" />
+  <path d="M 300 205 Q 288 224 268 227" fill="none" stroke="#E3B98C" stroke-width="15" stroke-linecap="round" />
+  <circle cx="264" cy="228" r="11" class="peau contour" />
+  <line x1="260" y1="224" x2="242" y2="234" stroke="#2C3B35" stroke-width="4" stroke-linecap="round" />
+  <line x1="242" y1="234" x2="238" y2="236" stroke="#E3B98C" stroke-width="4" stroke-linecap="round" />
+  <rect x="238" y="108" width="24" height="26" rx="8" class="peau" />
+  <circle cx="250" cy="88" r="40" class="peau contour" />
+  <circle cx="288" cy="90" r="6" class="peau" />
+  <path d="M 210 82
+           Q 206 40 250 36
+           Q 294 40 290 82
+           Q 288 62 268 56
+           Q 250 66 232 56
+           Q 213 62 210 82 Z" class="cheveux contour" />
+  <path d="M 214 70 Q 218 50 250 46 Q 224 54 220 76 Z" fill="#3A4A42" />
+  <circle cx="236" cy="90" r="3.2" fill="#2C3B35" />
+  <circle cx="264" cy="90" r="3.2" fill="#2C3B35" />
+  <path d="M 233 103 Q 250 112 267 103" fill="none" stroke="#2C3B35" stroke-width="2.5" stroke-linecap="round" />
+  <path d="M 224 78 Q 232 73 240 77" fill="none" stroke="#2C3B35" stroke-width="2" stroke-linecap="round" />
+  <path d="M 260 77 Q 268 73 276 78" fill="none" stroke="#2C3B35" stroke-width="2" stroke-linecap="round" />
+  <circle cx="222" cy="96" r="5" fill="#D98B6B" opacity="0.35" />
+  <circle cx="278" cy="96" r="5" fill="#D98B6B" opacity="0.35" />
+  <g class="accent">
+    <path d="M 85 90 l 4 10 l 10 4 l -10 4 l -4 10 l -4 -10 l -10 -4 l 10 -4 Z" />
+    <path d="M 425 130 l 3.5 9 l 9 3.5 l -9 3.5 l -3.5 9 l -3.5 -9 l -9 -3.5 l 9 -3.5 Z" />
+    <path d="M 435 240 l 3 8 l 8 3 l -8 3 l -3 8 l -3 -8 l -8 -3 l 8 -3 Z" />
+    <path d="M 60 250 l 3 8 l 8 3 l -8 3 l -3 8 l -3 -8 l -8 -3 l 8 -3 Z" opacity="0.7" />
+  </g>
+</svg>

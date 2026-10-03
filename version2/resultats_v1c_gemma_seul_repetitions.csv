@@ -1,0 +1,28 @@
+version;id_question;repetition;question;temps_secondes;ram;reponse
+v1c_gemma_seul;Q1_maths_sans_contexte;1;Quelle est la formule de l'aire d'un cercle ?;8.07;4568 Mo;l'aire d'un cercle est égale à pi multiplié par le rayon au carré.
+v1c_gemma_seul;Q1_maths_sans_contexte;2;Quelle est la formule de l'aire d'un cercle ?;5.46;4531 Mo;L'aire d'un cercle est égale à pi multiplié par le rayon au carré. Formule mathématique : A = π * R^2
+v1c_gemma_seul;Q1_maths_sans_contexte;3;Quelle est la formule de l'aire d'un cercle ?;6.90;4528 Mo;L'aire d'un cercle est égale à pi multiplié par le rayon au carré. Formule mathématique : A = πr^2, où A représente l'aire et r le rayon du cercle.
+v1c_gemma_seul;Q2_histgeo_sans_contexte;1;Quelle est la capitale du Sénégal ?;3.87;4526 Mo;La capitale du Sénégal est Dakar.
+v1c_gemma_seul;Q2_histgeo_sans_contexte;2;Quelle est la capitale du Sénégal ?;3.00;4534 Mo;La capitale du Sénégal est Dakar.
+v1c_gemma_seul;Q2_histgeo_sans_contexte;3;Quelle est la capitale du Sénégal ?;3.05;4527 Mo;La capitale du Sénégal est Dakar.
+v1c_gemma_seul;Q3_question_ambigue;1;Je veux la formule du triangle;7.74;4526 Mo;La formule du triangle est  A = 1/2 x b x h , où  a  représente le périmètre,  c  le côté opposé à l'angle droit et  h  la longueur de la hauteur.
+v1c_gemma_seul;Q3_question_ambigue;2;Je veux la formule du triangle;20.72;4504 Mo;"Le triangle isocèles est un triangle dont deux côtés sont égaux. La formule pour le calculer n'est pas spécifique à sa forme, mais dépend des valeurs connues : la longueur d'un côté ou l'angle.
+
+Si tu as besoin de l'équation du triangle rectangle en trigonométrie, je peux te la donner. Par exemple, si on considère un triangle avec deux angles droits et un angle non droit, la formule pour trouver le côté opposé à cet angle est : 
+ \text{Côté} = \text{Périmètre}/2 x \tan(\text{Angle}) 
+
+Si tu veux plus de détails sur l'équation du triangle rectangle, n'hésite pas."
+v1c_gemma_seul;Q3_question_ambigue;3;Je veux la formule du triangle;9.21;4487 Mo;"La formule du triangle est :
+
+ A = 1/2 x base x hauteur 
+
+Où:
+- A est le périmètre (en cm)
+- base est la longueur de la base (ex : 40 cm)
+- hauteur est l'altitude (ex : 15 cm)"
+v1c_gemma_seul;Q4_avec_contexte_rag;1;Que retenir de ce cours ?;10.60;4502 Mo;Les points à retenir incluraient la compréhension de concepts cruciaux, le développement de compétences spécifiques et l'apprentissage d'outils utiles pour les futurs projets. Un exemple serait une capacité accrue à résoudre des problèmes mathématiques complexes ou un savoir méthodique pour effectuer des recherches bibliographiques efficaces.
+v1c_gemma_seul;Q4_avec_contexte_rag;2;Que retenir de ce cours ?;3.34;4508 Mo;Je ne suis pas sûr de ce fait.
+v1c_gemma_seul;Q4_avec_contexte_rag;3;Que retenir de ce cours ?;2.61;4500 Mo;Je ne suis pas sûr de ce fait.
+v1c_gemma_seul;Q5_question_de_suivi;1;Et pour un cercle ?;3.61;4495 Mo;Je ne sais pas du tout ce que vous voulez dire.
+v1c_gemma_seul;Q5_question_de_suivi;2;Et pour un cercle ?;5.82;4488 Mo;Pour un cercle, la formule mathématique est A = pi * R^2, où A représente l'aire du cercle et R est son rayon.
+v1c_gemma_seul;Q5_question_de_suivi;3;Et pour un cercle ?;4.22;4510 Mo;Un cercle est simplement un polygone régulier avec 360 côtés.

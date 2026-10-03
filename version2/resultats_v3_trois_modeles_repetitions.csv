@@ -1,0 +1,16 @@
+version;id_question;repetition;question;temps_secondes;ram;reponse
+v3_trois_modeles;Q1_maths_sans_contexte;1;Quelle est la formule de l'aire d'un cercle ?;8.23;4528 Mo;l'aire d'un cercle est égale à pi multiplié par le rayon au carré.
+v3_trois_modeles;Q1_maths_sans_contexte;2;Quelle est la formule de l'aire d'un cercle ?;8.39;4522 Mo;"La formule de l'aire d'un cercle est A = pi * r^2, où ""pi"" est approximativement égal à 3.14159 et ""r"" représente le rayon du cercle."
+v3_trois_modeles;Q1_maths_sans_contexte;3;Quelle est la formule de l'aire d'un cercle ?;5.99;4509 Mo;L'aire d'un cercle est donnée par la formule A = pi * R^2, où R est le rayon du cercle.
+v3_trois_modeles;Q2_histgeo_sans_contexte;1;Quelle est la capitale du Sénégal ?;4.30;4516 Mo;La capitale du Sénégal est Dakar.
+v3_trois_modeles;Q2_histgeo_sans_contexte;2;Quelle est la capitale du Sénégal ?;3.63;4508 Mo;La capitale du Sénégal est Dakar.
+v3_trois_modeles;Q2_histgeo_sans_contexte;3;Quelle est la capitale du Sénégal ?;3.40;4508 Mo;La capitale du Sénégal est Dakar.
+v3_trois_modeles;Q3_question_ambigue;1;Je veux la formule du triangle;5.70;4510 Mo;La formule du triangle est $A = 1/2 x b x h$.
+v3_trois_modeles;Q3_question_ambigue;2;Je veux la formule du triangle;11.53;4502 Mo;Le triangle est un polygone avec trois côtés et trois angles. Les formules mathématiques associées peuvent varier en fonction de la mesure des angles ou des longueurs des côtés, mais pour le triangle rectangle dans un repère orthogonal (qui a deux angles droits), les formules principales sont : l'aire du triangle est égale à la moitié de la multiplication du produit des cathets par la hauteur correspondante.
+v3_trois_modeles;Q3_question_ambigue;3;Je veux la formule du triangle;3.71;4497 Mo;A = 1/2 * base * hauteur
+v3_trois_modeles;Q4_avec_contexte_rag;1;Que retenir de ce cours ?;7.14;4506 Mo;Les principes clés à retenir sont : - La structure du corps, - Les systèmes d'équations linéaires, - Le calcul vectoriel et la résolution d'équations différentielles.
+v3_trois_modeles;Q4_avec_contexte_rag;2;Que retenir de ce cours ?;10.64;4508 Mo;Revenons à la connaissance qu'on a eue jusqu'ici. Il semble que vous avez un peu oublié les détails importants du cours. Les points clés à retenir pourraient être: l'étude de deux méthodes d'apprentissage principalement utilisées dans le domaine scolaire (ex: apprentissage par l'expérience et apprentissage expérimental).
+v3_trois_modeles;Q4_avec_contexte_rag;3;Que retenir de ce cours ?;4.66;4514 Mo;Retenir la compréhension des principes et notions abordées, développer des compétences en lecture et débat.
+v3_trois_modeles;Q5_question_de_suivi;1;Et pour un cercle ?;5.77;4514 Mo;Pour un cercle, l'aire est égale à pi multiplié par le rayon au carré.
+v3_trois_modeles;Q5_question_de_suivi;2;Et pour un cercle ?;7.10;4509 Mo;Un cercle est une figure plane définie par ses deux points fixes, appelés centres. Toute la circonférence du cercle est à la même distance des deux centres.
+v3_trois_modeles;Q5_question_de_suivi;3;Et pour un cercle ?;6.67;4517 Mo;Pour un cercle, sa circonférence est égale à 2 \pi r où r est le rayon du cercle.

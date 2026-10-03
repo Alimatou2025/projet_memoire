@@ -1,0 +1,28 @@
+version;id_question;repetition;question;temps_secondes;ram;reponse
+v1a_deepseek_seul;Q1_maths_sans_contexte;1;Quelle est la formule de l'aire d'un cercle ?;16.08;4494 Mo;"La formule pour calculer l'aire d'un cercle est : A = pi * R^2, où ""A"" représente l'aire et ""R"" le rayon du cercle."
+v1a_deepseek_seul;Q1_maths_sans_contexte;2;Quelle est la formule de l'aire d'un cercle ?;6.34;4458 Mo;L'aire d'un cercle se calcule avec la formule : A = pi * r^2, où 'A' est la surface et 'r' est le rayon du cercle.
+v1a_deepseek_seul;Q1_maths_sans_contexte;3;Quelle est la formule de l'aire d'un cercle ?;6.33;4448 Mo;L'aire d'un cercle se calcule avec la formule: A = pi * R^2, où A représente l'aire en unités carrées et R le rayon du cercle.
+v1a_deepseek_seul;Q2_histgeo_sans_contexte;1;Quelle est la capitale du Sénégal ?;3.97;4453 Mo;La capitale du Sénégal est Dakar.
+v1a_deepseek_seul;Q2_histgeo_sans_contexte;2;Quelle est la capitale du Sénégal ?;3.43;4456 Mo;La capitale du Sénégal est Dakar.
+v1a_deepseek_seul;Q2_histgeo_sans_contexte;3;Quelle est la capitale du Sénégal ?;3.16;4461 Mo;La capitale du Sénégal est Dakar.
+v1a_deepseek_seul;Q3_question_ambigue;1;Je veux la formule du triangle;10.38;4464 Mo;"La formule du triangle est a^2 = b^2 + c^2 - 2bc \cos A, où A est l'angle opposé à côté d'un côté, noté a; b et c sont les autres côtés; et  \cos A est la valeur cosinus de l'angle A."
+v1a_deepseek_seul;Q3_question_ambigue;2;Je veux la formule du triangle;6.06;4497 Mo;La formule du triangle est : A = 1/2 * b * h, où a est l'aire et b et h sont les longueurs des côtés opposés à ces angles.
+v1a_deepseek_seul;Q3_question_ambigue;3;Je veux la formule du triangle;13.48;4465 Mo;"Le triangle est un objet géométrique avec plusieurs formules, notamment pour calculer sa hauteur, son périmètre et ses dimensions. Pour la hauteur d'un triangle rectangle, par exemple, on utilise généralement la formule :
+
+ \text{Hauteur} = \text{Longueur du côté adjacent à l'angle droit}/\tan(\text{Angle au sommet)} 
+
+La forme du triangle est dépendante des informations spécifiques que vous désirez calculer."
+v1a_deepseek_seul;Q4_avec_contexte_rag;1;Que retenir de ce cours ?;9.18;4497 Mo;Je n'ai aucune connaissance du cours que vous parlez. Je vous suggère de contacter votre instructeur pour obtenir des informations sur le contenu du cours ou de consulter les notes d'un autre étudiant qui a suivi cette matinée.
+v1a_deepseek_seul;Q4_avec_contexte_rag;2;Que retenir de ce cours ?;11.11;4468 Mo;Je n'ai trouvé aucun document spécifique ou connaissance détaillée pour répondre à votre question. Veuillez reformuler votre demande si vous souhaitez des conseils sur le contenu du cours, la méthodologie d'apprentissage ou un autre aspect lié au cours. Je serai ravi de vous aider avec une réponse plus précise en fonction de l'information contenue dans le contexte que vous avez déjà discuté.
+v1a_deepseek_seul;Q4_avec_contexte_rag;3;Que retenir de ce cours ?;3.48;4469 Mo;Il n'y a aucun cours mentionné dans cette conversation.
+v1a_deepseek_seul;Q5_question_de_suivi;1;Et pour un cercle ?;6.00;4473 Mo;Pour un cercle, la formule mathématique est A = pi * r^2, où A représente l'aire du cercle et r le rayon.
+v1a_deepseek_seul;Q5_question_de_suivi;2;Et pour un cercle ?;23.09;4459 Mo;"Un cercle est défini par ses trois dimensions : le diamètre, la circonférence et le rayon. Cependant, il existe d'autres formes dont les propriétés sont calculées à partir des mêmes paramètres.
+
+1) Diamètre (D): La longueur du segment qui s'étire de un point au diamètre opposé.
+2) Circonférence (C): Le périmètre complet autour du cercle, mesure en mètres ou yards.
+3) Rayon (R): La distance à partir d'un point situé sur le cercle jusqu'à ce dernier.
+
+Le volume (V) d'un cylindre est la forme de l'aire des surfaces carrelées. Il peut être calculé comme étant égal à l'aire du parallélépipède carré divisée par 2, puis par la hauteur.
+
+Il existe une relation entre ces trois mesures : les formules sont censées fournir le même résultat pour tous les cas où on considère un cercle."
+v1a_deepseek_seul;Q5_question_de_suivi;3;Et pour un cercle ?;10.81;4459 Mo;"Pourriez-vous préciser votre question concernant le cercle ? Il semble que vous ayez mentionné ""Si la question fait référence au message précédent"" mais n'avez pas donné une nouvelle question. Cela pourrait faire référence à des propriétés du cercle, comme son rayon, sa circonférence ou sa surface, par exemple : ""Explique le rôle du rayon dans un cercle""."

@@ -1,0 +1,6 @@
+version;id_question;question;type_teste;temps_secondes;ram_ollama;reponse
+v1c_gemma_seul;Q1_maths_sans_contexte;Quelle est la formule de l'aire d'un cercle ?;Raisonnement scientifique, sans document de cours;6.67;3844 Mo (RAM systeme totale);L'aire d'un cercle est égale à pi multiplié par le rayon au carré, soit A = πr².
+v1c_gemma_seul;Q2_histgeo_sans_contexte;Quelle est la capitale du Sénégal ?;Connaissance factuelle, sans document de cours;3.27;3840 Mo (RAM systeme totale);La capitale du Sénégal est Dakar.
+v1c_gemma_seul;Q3_question_ambigue;Je veux la formule du triangle;Question ouverte/imprécise;6.52;3837 Mo (RAM systeme totale);La formule d'un triangle rectangle est  A = 1/2 x b x h , où  b  est le base et  h  est la hauteur.
+v1c_gemma_seul;Q4_avec_contexte_rag;Que retenir de ce cours ?;Usage normal, avec un document de cours réellement indexé;4.09;3824 Mo (RAM systeme totale);Je ne retenais aucune réflexion personnelle sur ce cours.
+v1c_gemma_seul;Q5_question_de_suivi;Et pour un cercle ?;Gestion de l'historique de conversation;6.46;3825 Mo (RAM systeme totale);Un cercle est un polygone à une face, avec 360 côtés. Le périmètre du cercle est égal à son diamètre multiplié par 2 pi (ou π).

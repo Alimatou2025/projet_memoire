@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titre %}Accueil — Plateforme pédagogique{% endblock %}
+
+{% block contenu %}
+<div class="banniere-accueil">
+    <img src="{% static 'images/accueil-hero.jpg' %}" alt="Deux apprenants utilisant la plateforme, l'un sur ordinateur, l'autre sur téléphone">
+    <div class="banniere-accueil-texte">
+        <h1>Apprendre, même sans connexion internet</h1>
+        <p>
+            Une plateforme pédagogique intelligente, pensée pour fonctionner
+            hors ligne, avec un assistant IA qui répond aux questions des
+            apprenants à partir des cours de l'établissement.
+        </p>
+        <a href="{% url 'connexion' %}" class="bouton">Se connecter</a>
+    </div>
+</div>
+{% endblock %}

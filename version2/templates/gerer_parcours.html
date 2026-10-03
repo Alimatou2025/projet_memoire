@@ -1,0 +1,99 @@
+{% extends "base_dashboard.html" %}
+
+{% block titre %}Parcours — Administrateur{% endblock %}
+
+{% block contenu %}
+<div class="barre-superieure">
+    <span class="fil-ariane">Parcours</span>
+</div>
+<div class="conteneur-large">
+
+<div class="entete-page">
+    <h1>Parcours</h1>
+    <p>Gère les parcours de {{ request.user.etablissement.nom|default:"votre établissement" }}.</p>
+</div>
+
+{% if not a_etablissement %}
+<p class="message-erreur">Crée d'abord ton établissement avant d'ajouter un parcours.</p>
+{% else %}
+<div class="disposition-2col">
+    <div>
+        <h2 class="titre-section">Parcours existants</h2>
+        <table class="tableau-donnees">
+            <thead>
+                <tr>
+                    <th>Intitulé</th>
+                    <th>Espaces</th>
+                    <th>Inscrits</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in parcours_liste %}
+                <tr>
+                    <td>{{ p.intitule }}</td>
+                    <td>{{ p.espaces.count }}</td>
+                    <td>{{ p.inscriptions.count }}</td>
+                    <td style="white-space:nowrap;">
+                        <button type="button" onclick="modifierParcours('{{ p.id_parcours }}', '{{ p.intitule|escapejs }}', '{{ p.description|default:""|escapejs }}')" style="background:none; border:none; color:var(--couleur-lien, #8a6d3b); font-size:0.85rem; cursor:pointer; padding:0; margin-right:0.8rem;">Modifier</button>
+                        <form method="post" onsubmit="return confirm('Supprimer « {{ p.intitule }} » et tout son contenu (espaces, ressources) ? Cette action est irréversible.');" style="margin:0; display:inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="supprimer">
+                            <input type="hidden" name="id_parcours" value="{{ p.id_parcours }}">
+                            <button type="submit" style="background:none; border:none; color:var(--couleur-erreur); font-size:0.85rem; cursor:pointer; padding:0;">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="4" class="liste-vide">Aucun parcours créé pour le moment.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <h2 class="titre-section" id="titre-formulaire-parcours">Créer un parcours</h2>
+        <div class="carte">
+            <form method="post" id="formulaire-parcours">
+                {% csrf_token %}
+                <input type="hidden" name="action" id="champ-action" value="creer">
+                <input type="hidden" name="id_parcours" id="champ-id-parcours" value="">
+
+                <label for="intitule">Intitulé</label>
+                <input type="text" id="intitule" name="intitule" placeholder="Ex : Terminale S" required>
+
+                <label for="description">Description (optionnelle)</label>
+                <input type="text" id="description" name="description" placeholder="Ex : Série scientifique">
+
+                <button type="submit" class="bouton" style="margin-top:0.9rem;" id="bouton-soumettre-parcours">Créer</button>
+                <button type="button" class="bouton-secondaire" style="margin-top:0.9rem; display:none;" id="bouton-annuler-parcours" onclick="annulerModificationParcours()">Annuler</button>
+            </form>
+        </div>
+
+        <script>
+            function modifierParcours(id, intitule, description) {
+                document.getElementById('titre-formulaire-parcours').textContent = 'Modifier le parcours';
+                document.getElementById('champ-action').value = 'modifier';
+                document.getElementById('champ-id-parcours').value = id;
+                document.getElementById('intitule').value = intitule;
+                document.getElementById('description').value = description;
+                document.getElementById('bouton-soumettre-parcours').textContent = 'Enregistrer les modifications';
+                document.getElementById('bouton-annuler-parcours').style.display = 'inline-block';
+                document.getElementById('formulaire-parcours').scrollIntoView({behavior: 'smooth', block: 'center'});
+            }
+            function annulerModificationParcours() {
+                document.getElementById('titre-formulaire-parcours').textContent = 'Créer un parcours';
+                document.getElementById('champ-action').value = 'creer';
+                document.getElementById('champ-id-parcours').value = '';
+                document.getElementById('intitule').value = '';
+                document.getElementById('description').value = '';
+                document.getElementById('bouton-soumettre-parcours').textContent = 'Créer';
+                document.getElementById('bouton-annuler-parcours').style.display = 'none';
+            }
+        </script>
+    </div>
+</div>
+{% endif %}
+
+</div>
+{% endblock %}

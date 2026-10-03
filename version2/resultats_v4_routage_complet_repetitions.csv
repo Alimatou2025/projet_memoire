@@ -1,0 +1,26 @@
+version;id_question;repetition;question;temps_secondes;ram;reponse
+v4_routage_complet;Q1_maths_sans_contexte;1;Quelle est la formule de l'aire d'un cercle ?;18.34;4451 Mo;L'aire d'un cercle se calcule avec la formule  A = \pi r^2 , où  r  est le rayon du cercle.
+v4_routage_complet;Q1_maths_sans_contexte;2;Quelle est la formule de l'aire d'un cercle ?;5.02;4409 Mo;La formule de l'aire d'un cercle est : A = pi * R^2
+v4_routage_complet;Q1_maths_sans_contexte;3;Quelle est la formule de l'aire d'un cercle ?;5.72;4398 Mo;l'aire d'un cercle est égale à pi multiplié par le rayon au carré.
+v4_routage_complet;Q2_histgeo_sans_contexte;1;Quelle est la capitale du Sénégal ?;4.48;4382 Mo;La capitale du Sénégal est Dakar.
+v4_routage_complet;Q2_histgeo_sans_contexte;2;Quelle est la capitale du Sénégal ?;3.75;4379 Mo;La capitale du Sénégal est Dakar.
+v4_routage_complet;Q2_histgeo_sans_contexte;3;Quelle est la capitale du Sénégal ?;4.09;4378 Mo;La capitale du Sénégal est Dakar.
+v4_routage_complet;Q3_question_ambigue;1;Je veux la formule du triangle;21.11;4369 Mo;"La formule du triangle est généralement représentée par le sinus, exprimant la relation entre les longueurs des côtés et l'angle opposé. Elle se présente comme suit :
+
+ \sin(\theta) = opposé/haut\_du_triangle 
+
+Où θ représente l'angle de référence, ""opposé"" désigne le côté directement adjacent à l'angle, et ""haut\_du\_triangle"" est la hauteur du triangle.
+
+Si une question spécifie un sujet différent ou si elle fait référence à quelque chose qui n'a pas été abordé dans votre cours précédemment (par exemple, les formules de réduction d'une série, le principe fondamental des trigonométrie), c'est un cas où vous devrez commencer à expliquer à partir de zéro."
+v4_routage_complet;Q3_question_ambigue;2;Je veux la formule du triangle;7.76;4428 Mo;"La formule du triangle est :
+
+A = 1/2 * b * h
+
+où A représente l'aire, b le périmètre et h l'hypoténuse."
+v4_routage_complet;Q3_question_ambigue;3;Je veux la formule du triangle;3.81;4404 Mo;A = 1/2 * base * hauteur
+v4_routage_complet;Q4_avec_contexte_rag;1;Que retenir de ce cours ?;7.27;4389 Mo;Je n'ai pas accès à un document spécifique ou une connaissance avancée que contient la plateforme MonEspace. Cependant, je peux vous aider à réfléchir sur des points importants pour le cours en général.
+v4_routage_complet;Q4_avec_contexte_rag;2;Que retenir de ce cours ?;3.92;4392 Mo;Je n'ai pas reçu de cours précédent pour répondre à la question.
+v4_routage_complet;Q4_avec_contexte_rag;3;Que retenir de ce cours ?;3.32;4393 Mo;Je n'ai aucune information spécifique à partager concernant cette question.
+v4_routage_complet;Q5_question_de_suivi;1;Et pour un cercle ?;5.37;4388 Mo;Le rayon est égal à la diagonale divisée par deux.
+v4_routage_complet;Q5_question_de_suivi;2;Et pour un cercle ?;6.40;4386 Mo;Pour un cercle, la formule est A = pi * R^2. Avec R comme le rayon du cercle, vous pouvez calculer sa surface.
+v4_routage_complet;Q5_question_de_suivi;3;Et pour un cercle ?;7.11;4393 Mo;Un cercle est un polygone avec une infinité de côtés. Il possède 360 angles et 12960 diagonaux.
