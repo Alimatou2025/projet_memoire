@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,7 +24,13 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-oh6xa=$5l$c10ln#rjs+*m*vhi=^39q72irgte^qg^)x2c#7%)'
+# Prend la valeur dans la variable d'environnement DJANGO_SECRET_KEY (voir .env).
+# La valeur de repli ci-dessous n'est utilisee que si aucune variable n'est definie
+# (dev local sans .env) et n'est plus la cle qui etait exposee publiquement avant.
+SECRET_KEY = os.environ.get(
+    'DJANGO_SECRET_KEY',
+    '*n8t$8k2se3r7n0_5-g(dkqv98_yi2s48ucl&#a%%m=@jeh@00',
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -76,8 +83,6 @@ WSGI_APPLICATION = 'plateforme_edu.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-import os
 
 DATABASES = {
     'default': {

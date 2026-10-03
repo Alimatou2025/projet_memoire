@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,7 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-oh6xa=$5l$c10ln#rjs+*m*vhi=^39q72irgte^qg^)x2c#7%)'
+# Prend la valeur dans la variable d'environnement DJANGO_SECRET_KEY (voir .env).
+# La valeur de repli ci-dessous n'est utilisee que si aucune variable n'est definie
+# (dev local sans .env) et n'est plus la cle qui etait exposee publiquement avant.
+SECRET_KEY = os.environ.get(
+    'DJANGO_SECRET_KEY',
+    'ww5amg3_d&7-kwh#0b&ohluxe_p7!f7mo+_@b=od2#pia7c6or',
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -74,14 +81,12 @@ WSGI_APPLICATION = 'plateforme_edu.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-import os
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.environ.get('DB_NAME', 'plateforme_db'),
         'USER': os.environ.get('DB_USER', 'root'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'alima'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'j8tj9EepQuILViVbGBJV'),
         'HOST': os.environ.get('DB_HOST', 'db'),
         'PORT': '3306',
     }

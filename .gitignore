@@ -12,3 +12,4 @@ app/chroma_db_storage/
 app/plateforme_edu/chroma_db/
 app/media/
 app/*.pdf
+reseau/hostapd.conf

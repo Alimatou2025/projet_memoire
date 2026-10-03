@@ -18,7 +18,7 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: plateforme_db
-      MYSQL_ROOT_PASSWORD: alima
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     volumes:
       - ./base_donnees:/var/lib/mysql
 
@@ -54,6 +54,7 @@ services:
     environment:
       DB_NAME: plateforme_db
       DB_USER: root
-      DB_PASSWORD: alima
+      DB_PASSWORD: ${DB_PASSWORD}
       DB_HOST: db
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
       command: python manage.py runserver 0.0.0.0:8000
