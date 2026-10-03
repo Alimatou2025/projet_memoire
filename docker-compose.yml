@@ -27,6 +27,7 @@ services:
     container_name: memoire_ia
     platform: linux/arm64
     dns:
+      - 127.0.0.11
       - 8.8.8.8
       - 8.8.4.4
     volumes:
@@ -40,6 +41,7 @@ services:
     container_name: memoire_app
     restart: always
     dns:
+      - 127.0.0.11
       - 8.8.8.8
       - 8.8.4.4
     volumes:
@@ -47,7 +49,7 @@ services:
       - /usr/local/lib/python3.11/site-packages/
       - /usr/local/bin/
     ports:
-      - "8000:8000"
+      - "8001:8000"
     depends_on:
       - db
       - ollama
