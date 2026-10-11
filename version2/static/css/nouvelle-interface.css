@@ -1,0 +1,250 @@
+/* ============================================================
+   Nouvelle interface XamXamIA (bordeaux, rose, doré)
+   Chargée APRÈS style.css : pour revenir à l'ancienne interface,
+   retirer la ligne <link ... nouvelle-interface.css> des gabarits
+   base.html et base_dashboard.html.
+   Aucune ressource externe : polices et images sont locales.
+   ============================================================ */
+
+@font-face { font-family: 'Poppins'; font-weight: 400; font-style: normal; font-display: swap; src: url('../fonts/poppins-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Poppins'; font-weight: 500; font-style: normal; font-display: swap; src: url('../fonts/poppins-latin-500-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Poppins'; font-weight: 600; font-style: normal; font-display: swap; src: url('../fonts/poppins-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Poppins'; font-weight: 700; font-style: normal; font-display: swap; src: url('../fonts/poppins-latin-700-normal.woff2') format('woff2'); }
+
+:root {
+    --couleur-fond: #FFF3F7;
+    --couleur-fond-alt: #FDE8EE;
+    --couleur-texte: #16233A;
+    --couleur-texte-att: #55657D;
+    --couleur-accent: #7F1D2D;
+    --couleur-accent-clair: #D42A52;
+    --couleur-accent-fonce: #5E1421;
+    --couleur-bordure: #F0D4DC;
+    --couleur-succes: #2FA36B;
+    --ni-bordeaux: #7F1D2D;
+    --ni-rose-fonce: #A3123F;
+    --ni-rose-moyen: #D42A52;
+    --ni-rose-clair: #FF9DB8;
+    --ni-or: #F5B83D;
+    --ni-or-texte: #4A0F1A;
+    --ni-noir: #0A0A0D;
+    --ombre: 0 1px 3px rgba(127, 29, 45, 0.06), 0 4px 14px rgba(127, 29, 45, 0.07);
+    --ombre-hover: 0 4px 10px rgba(127, 29, 45, 0.12), 0 8px 24px rgba(127, 29, 45, 0.10);
+}
+
+html, body, input, select, textarea, button {
+    font-family: 'Poppins', -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ---------- Menu latéral (espace connecté) ---------- */
+.barre-laterale { background-color: var(--ni-bordeaux); color: #fff; }
+@media (min-width: 901px) { .barre-laterale { width: 248px; } }
+.logo-plateforme { border-bottom: 1px solid rgba(255, 255, 255, 0.18); color: #fff; }
+.logo-plateforme img { width: 40px; height: 40px; flex-shrink: 0; }
+.logo-plateforme .texte-logo { font-weight: 700; font-size: 1.35rem; letter-spacing: -0.3px; white-space: nowrap; }
+.texte-logo .ia, .ni-logo .ia { color: #FFB8C6; }
+.lien-nav { color: rgba(255, 255, 255, 0.88); }
+.lien-nav:hover { background-color: rgba(255, 255, 255, 0.12); color: #fff; }
+.lien-nav.actif { background-color: rgba(255, 255, 255, 0.2); color: #fff; font-weight: 600; }
+.pied-laterale { border-top: 1px solid rgba(255, 255, 255, 0.18); }
+.avatar-initiales { background-color: #FFB8C6; color: var(--ni-bordeaux); }
+.carte-profil .nom-profil { color: #fff; }
+.carte-profil .role-profil { color: rgba(255, 255, 255, 0.75); }
+.barre-superieure { border-bottom-color: var(--couleur-bordure); }
+
+/* ---------- Composants existants, aux nouvelles couleurs ---------- */
+.barre-progression-valeur { background-color: var(--ni-rose-fonce); }
+.puce-role.administrateur { background-color: #FDE8EE; color: #7F1D2D; }
+.puce-role.enseignant { background-color: #FFE4EA; color: #A3123F; }
+.puce-role.apprenant { background-color: #E1E9F5; color: #1F3A5F; }
+.carte-stat .icone-stat { background-color: #FDE8EE; color: var(--ni-bordeaux); }
+.bouton { border-radius: 999px; font-weight: 600; }
+.bouton-secondaire { border-radius: 999px; }
+.mini-carte-ressource .bouton-secondaire { white-space: nowrap; }
+
+/* ---------- LIA en vedette (tableau de bord de l'apprenant) ---------- */
+.bandeau-lia {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+    padding: 1.4rem 1.8rem;
+    margin-bottom: var(--espace-4);
+    border-radius: 24px;
+    background: linear-gradient(120deg, #F5B83D, #FFD27A);
+    color: var(--ni-or-texte);
+    box-shadow: 0 12px 32px rgba(245, 184, 61, 0.35);
+}
+.bandeau-lia .bandeau-icone {
+    flex-shrink: 0;
+    width: 76px; height: 76px;
+    border-radius: 50%;
+    background: var(--ni-bordeaux);
+    display: flex; align-items: center; justify-content: center;
+}
+.bandeau-lia .bandeau-icone svg { width: 40px; height: 40px; }
+.bandeau-lia .bandeau-texte { flex: 1; min-width: 0; }
+.bandeau-lia h2 { margin: 0; font-size: 1.5rem; font-weight: 800; color: var(--ni-or-texte); }
+.bandeau-lia p { margin: 0.3rem 0 0; font-size: 1rem; font-weight: 500; }
+.bandeau-lia .bouton { background: var(--ni-bordeaux); color: #fff; padding: 0.85rem 1.7rem; font-size: 1rem; flex-shrink: 0; }
+.bandeau-lia .bouton:hover { background: var(--couleur-accent-fonce); }
+
+/* ---------- Bouton LIA flottant ---------- */
+.lia-flottant {
+    position: fixed;
+    right: 28px;
+    bottom: 26px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 28px 12px 14px;
+    border-radius: 999px;
+    background: var(--ni-or);
+    border: 3px solid #fff;
+    color: var(--ni-or-texte);
+    text-decoration: none;
+    box-shadow: 0 12px 34px rgba(127, 29, 45, 0.45);
+    animation: lia-pulse 2.2s infinite;
+    transition: transform 0.15s ease;
+}
+.lia-flottant:hover { transform: translateY(-2px) scale(1.03); }
+.lia-flottant .lia-icone { width: 54px; height: 54px; border-radius: 50%; background: var(--ni-bordeaux); display: flex; align-items: center; justify-content: center; }
+.lia-flottant .lia-icone svg { width: 28px; height: 28px; }
+.lia-flottant .lia-textes { display: flex; flex-direction: column; line-height: 1.15; }
+.lia-flottant .lia-nom { font-weight: 800; font-size: 1.4rem; }
+.lia-flottant .lia-sous { font-weight: 700; font-size: 0.85rem; }
+@keyframes lia-pulse {
+    0%   { box-shadow: 0 12px 34px rgba(127,29,45,.45), 0 0 0 0 rgba(245,184,61,.75); }
+    70%  { box-shadow: 0 12px 34px rgba(127,29,45,.45), 0 0 0 20px rgba(245,184,61,0); }
+    100% { box-shadow: 0 12px 34px rgba(127,29,45,.45), 0 0 0 0 rgba(245,184,61,0); }
+}
+@media (prefers-reduced-motion: reduce) { .lia-flottant { animation: none; } }
+@media (max-width: 700px) {
+    .lia-flottant { right: 14px; bottom: 14px; padding: 8px; }
+    .lia-flottant .lia-textes { display: none; }
+    .bandeau-lia { flex-direction: column; text-align: center; }
+}
+
+/* Mention discrète sous le champ de saisie de LIA */
+.mention-ia { text-align: center; font-size: 0.78rem; color: var(--couleur-texte-att); margin: 0.6rem 0 0; }
+
+/* Page de LIA : couleurs du chat */
+.zone-saisie-chat .bouton, .bouton-plus { background-color: var(--ni-bordeaux); }
+.nom-fichier-choisi, .zone-saisie-chat a { color: var(--ni-bordeaux); }
+
+/* ---------- Pages publiques : entête ---------- */
+.ni-entete {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding: 12px 36px;
+    background: var(--ni-bordeaux);
+    box-shadow: 0 2px 12px rgba(60, 8, 20, 0.35);
+}
+.ni-logo { display: flex; align-items: center; gap: 12px; color: #fff; text-decoration: none; font-weight: 700; font-size: 1.6rem; letter-spacing: -0.3px; white-space: nowrap; flex-shrink: 0; }
+.ni-logo img { width: 46px; height: 46px; }
+.ni-nav { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.ni-nav a { padding: 9px 20px; border-radius: 999px; color: #fff; font-weight: 600; font-size: 0.9rem; text-decoration: none; border: 1.5px solid #fff; background: transparent; }
+.ni-nav a.ni-plein { background: var(--ni-or); border-color: var(--ni-or); color: var(--ni-or-texte); font-weight: 700; }
+.ni-nav a:hover { opacity: 0.9; }
+
+/* Menu à trois traits, sans JavaScript */
+.ni-case-menu { position: absolute; left: 0; top: 0; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.ni-hamburger { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 46px; height: 46px; padding: 0 11px; box-sizing: border-box; border-radius: 12px; background: rgba(255, 255, 255, 0.12); border: 1.5px solid rgba(255, 255, 255, 0.35); cursor: pointer; flex-shrink: 0; }
+.ni-hamburger span { display: block; height: 3px; border-radius: 2px; background: #fff; }
+.ni-fond-menu, .ni-tiroir { display: none; }
+.ni-case-menu:checked ~ .ni-fond-menu { display: block; position: fixed; inset: 0; z-index: 90; background: rgba(10, 10, 13, 0.55); cursor: pointer; }
+.ni-case-menu:checked ~ .ni-tiroir { display: flex; position: fixed; top: 0; left: 0; bottom: 0; width: 300px; max-width: 86vw; z-index: 100; background: var(--ni-bordeaux); color: #fff; flex-direction: column; gap: 4px; padding: 20px; box-sizing: border-box; box-shadow: 8px 0 30px rgba(0, 0, 0, 0.35); }
+.ni-tiroir .ni-tiroir-tete { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.ni-tiroir .ni-fermer { width: 38px; height: 38px; border-radius: 10px; background: rgba(255, 255, 255, 0.12); border: 1.5px solid rgba(255, 255, 255, 0.35); color: #fff; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.ni-tiroir a { padding: 12px 14px; border-radius: 12px; color: #fff; text-decoration: none; font-weight: 600; font-size: 0.95rem; }
+.ni-tiroir a:hover { background: rgba(255, 255, 255, 0.14); }
+.ni-tiroir .ni-titre-groupe { margin: 16px 0 4px; padding: 0 14px; font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #FFB8C6; }
+.ni-tiroir .ni-pastille { display: inline-block; width: 12px; height: 12px; border-radius: 50%; border: 2px solid rgba(255,255,255,.85); box-sizing: border-box; margin-right: 12px; vertical-align: middle; }
+
+/* ---------- Pages publiques : pied de page ---------- */
+.ni-pied { background: var(--ni-noir); color: #fff; padding: 44px 48px 0; margin-top: 3rem; }
+.ni-pied-grille { max-width: 1184px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px 72px; align-items: flex-start; }
+.ni-pied a { text-decoration: none; }
+.ni-pied-marque { display: flex; flex-direction: column; gap: 12px; max-width: 300px; }
+.ni-pied-marque .ni-logo { font-size: 1.5rem; }
+.ni-pied-marque .ni-logo img { width: 40px; height: 40px; }
+.ni-pied-marque span.ni-slogan { font-size: 0.9rem; line-height: 1.55; color: #9BA3B2; }
+.ni-pied-colonne { display: flex; flex-direction: column; gap: 12px; min-width: 160px; }
+.ni-pied-colonne .ni-pied-titre { font-weight: 600; font-size: 0.95rem; color: #fff; }
+.ni-pied-colonne a { color: #C9CED8; font-size: 0.9rem; }
+.ni-pied-colonne a:hover { color: #fff; }
+.ni-pied-lia { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-left: auto; color: var(--ni-or); font-weight: 700; font-size: 0.9rem; }
+.ni-pied-lia svg { width: 72px; height: 72px; filter: drop-shadow(0 6px 14px rgba(245, 184, 61, 0.35)); }
+.ni-pied-bas { max-width: 1184px; margin: 36px auto 0; border-top: 1px solid #23232B; padding: 18px 0 22px; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; font-size: 0.82rem; color: #8A92A3; }
+
+/* ---------- Page d'accueil ---------- */
+.ni-section { max-width: 1184px; margin: 0 auto; padding: 40px 48px 8px; box-sizing: border-box; }
+.ni-hero { position: relative; display: flex; align-items: center; min-height: 560px; border-radius: 24px; overflow: hidden; background: #FCE9D2; box-shadow: 0 12px 40px rgba(127, 29, 45, 0.14); }
+.ni-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: right center; }
+.ni-hero-texte { position: relative; flex: 0 1 40%; min-width: 300px; padding: 40px 36px; display: flex; flex-direction: column; gap: 18px; box-sizing: border-box; }
+.ni-hero h1 { margin: 0; font-size: 2.25rem; line-height: 1.15; font-weight: 700; letter-spacing: -0.8px; color: #2A1A1F; }
+.ni-hero p { margin: 0; font-size: 1rem; line-height: 1.6; color: #4A3A3F; }
+.ni-wifi { font-weight: 600; color: #2A1A1F; }
+.ni-wifi b { color: var(--ni-bordeaux); }
+.ni-bouton { display: inline-block; align-self: flex-start; padding: 13px 28px; border-radius: 12px; background: var(--ni-bordeaux); color: #fff; font-weight: 600; font-size: 1rem; text-decoration: none; }
+.ni-bouton:hover { background: var(--couleur-accent-fonce); }
+.ni-etapes { background: var(--couleur-fond-alt); padding: 56px 48px; margin-top: 40px; }
+.ni-etapes-interieur { max-width: 1184px; margin: 0 auto; }
+.ni-titre { margin: 0 0 24px; font-size: 1.9rem; font-weight: 700; letter-spacing: -0.5px; }
+.ni-grille3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+.ni-etape { display: flex; gap: 16px; align-items: flex-start; background: #fff; border: 1px solid var(--couleur-bordure); border-radius: 16px; padding: 22px; }
+.ni-etape .ni-num { flex-shrink: 0; width: 38px; height: 38px; border-radius: 50%; background: var(--ni-bordeaux); color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.ni-etape strong { display: block; font-size: 1.05rem; margin-bottom: 4px; }
+.ni-etape span.ni-detail { font-size: 0.92rem; line-height: 1.55; color: var(--couleur-texte-att); }
+.ni-lia-section { display: flex; flex-wrap: wrap; gap: 40px; align-items: center; padding-top: 56px; padding-bottom: 24px; }
+.ni-lia-section .ni-lia-texte { flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+.ni-lia-section h2 { margin: 0; font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; }
+.ni-lia-section p { margin: 0; line-height: 1.65; color: var(--couleur-texte-att); }
+.ni-chat { flex: 1 1 380px; min-width: 0; background: #fff; border: 1px solid var(--couleur-bordure); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 12px 40px rgba(127, 29, 45, 0.10); box-sizing: border-box; }
+.ni-chat .ni-q { align-self: flex-end; max-width: 80%; padding: 12px 16px; border-radius: 16px 16px 4px 16px; background: #1F3A5F; color: #fff; font-size: 0.95rem; }
+.ni-chat .ni-r { align-self: flex-start; max-width: 85%; padding: 12px 16px; border-radius: 16px 16px 16px 4px; background: var(--couleur-fond-alt); font-size: 0.95rem; line-height: 1.55; }
+.ni-chat .ni-saisie { display: flex; gap: 10px; margin-top: 6px; }
+.ni-chat .ni-saisie span { flex: 1; padding: 12px 14px; border-radius: 10px; border: 1.5px solid var(--couleur-bordure); font-size: 0.9rem; color: var(--couleur-texte-att); }
+.ni-chat .ni-saisie b { padding: 12px 18px; border-radius: 10px; background: var(--ni-rose-moyen); color: #fff; font-weight: 600; font-size: 0.9rem; }
+.ni-decouvre { padding-bottom: 24px; }
+.ni-decouvre .ni-sous { margin: 0 0 24px; color: var(--couleur-texte-att); }
+.ni-groupes { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+.ni-groupe { border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 10px; }
+.ni-groupe h3 { margin: 0 0 4px; font-size: 1.15rem; font-weight: 700; color: inherit; }
+.ni-groupe a { display: block; padding: 13px 16px; border-radius: 12px; background: rgba(255, 255, 255, 0.22); color: inherit; font-weight: 600; text-decoration: none; }
+.ni-groupe a:hover { background: rgba(255, 255, 255, 0.34); }
+.ni-groupe.g1 { background: var(--ni-rose-fonce); color: #fff; }
+.ni-groupe.g2 { background: var(--ni-rose-moyen); color: #fff; }
+.ni-groupe.g3 { background: var(--ni-rose-clair); color: var(--ni-or-texte); }
+
+/* ---------- Page À propos ---------- */
+.ni-bandeau-apropos { background: var(--couleur-fond-alt); padding: 64px 48px 56px; }
+.ni-bandeau-apropos .ni-interieur { max-width: 1184px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+.ni-etiquette { align-self: flex-start; padding: 6px 14px; border-radius: 999px; background: #fff; color: var(--ni-rose-moyen); font-weight: 600; font-size: 0.8rem; }
+.ni-bandeau-apropos h1 { margin: 0; font-size: 2.8rem; line-height: 1.12; font-weight: 700; letter-spacing: -1px; max-width: 820px; }
+.ni-bandeau-apropos h1 em { font-style: normal; color: var(--ni-rose-moyen); }
+.ni-bandeau-apropos p { margin: 0; font-size: 1.1rem; line-height: 1.65; color: var(--couleur-texte-att); max-width: 760px; }
+.ni-carte { background: #fff; border: 1px solid var(--couleur-bordure); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+.ni-carte strong { font-size: 1.1rem; }
+.ni-carte .ni-mini { font-weight: 700; font-size: 0.92rem; color: var(--ni-rose-moyen); }
+.ni-carte span.ni-texte { font-size: 0.92rem; line-height: 1.55; color: var(--couleur-texte-att); }
+.ni-carte h2 { margin: 0; font-size: 1.35rem; }
+.ni-carte p { margin: 0; font-size: 0.95rem; line-height: 1.65; color: var(--couleur-texte-att); }
+.ni-deux { display: flex; flex-wrap: wrap; gap: 24px; }
+.ni-deux > .ni-carte { flex: 1 1 420px; }
+
+@media (max-width: 900px) {
+    .ni-entete { padding: 10px 16px; gap: 14px; }
+    .ni-logo { font-size: 1.3rem; }
+    .ni-logo img { width: 38px; height: 38px; }
+    .ni-nav a { padding: 8px 12px; font-size: 0.82rem; }
+    .ni-section, .ni-etapes, .ni-bandeau-apropos { padding-left: 18px; padding-right: 18px; }
+    .ni-hero { min-height: 0; flex-direction: column; align-items: stretch; }
+    .ni-hero img { position: relative; order: 2; height: 260px; }
+    .ni-hero-texte { flex: none; }
+    .ni-pied { padding-left: 24px; padding-right: 24px; }
+    .ni-pied-lia { margin-left: 0; }
+}
+.ni-tiroir a.ni-logo, .ni-tiroir a.ni-logo:hover { padding: 0; background: none; font-size: 1.4rem; }

@@ -24,6 +24,11 @@ def accueil(request):
     return render(request, "accueil.html")
 
 
+def apropos(request):
+    """Page « À propos » publique."""
+    return render(request, "apropos.html")
+
+
 def connexion(request):
     """
     Une seule page de connexion. Après vérification du mot de passe,

@@ -4,23 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block titre %}Plateforme pédagogique{% endblock %}</title>
+    <title>{% block titre %}XamXamIA{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nouvelle-interface.css' %}">
 </head>
 <body>
 
-    <nav class="barre-navigation">
-        <div class="logo-plateforme"><span class="texte-logo">📚 Plateforme pédagogique</span></div>
-        <div class="onglets-navigation">
+    <header class="ni-entete">
+        <input type="checkbox" id="ni-menu" class="ni-case-menu" aria-hidden="true">
+        <label for="ni-menu" class="ni-hamburger" aria-label="Ouvrir le menu"><span></span><span></span><span></span></label>
+        <label for="ni-menu" class="ni-fond-menu"></label>
+        <aside class="ni-tiroir">
+            <div class="ni-tiroir-tete">
+                <a href="{% url 'accueil' %}" class="ni-logo"><img src="{% static 'img/logo-xamxamia.svg' %}" alt=""><span>XamXam<span class="ia">IA</span></span></a>
+                <label for="ni-menu" class="ni-fermer" aria-label="Fermer le menu">✕</label>
+            </div>
+            <a href="{% url 'connexion' %}">Tableau de bord</a>
+            <a href="{% url 'apropos' %}">À propos</a>
+            <div class="ni-titre-groupe">Mes matières</div>
+            <a href="{% url 'connexion' %}"><span class="ni-pastille"></span>Mathématiques</a>
+            <a href="{% url 'connexion' %}"><span class="ni-pastille"></span>Physique-Chimie</a>
+            <a href="{% url 'connexion' %}"><span class="ni-pastille"></span>SVT</a>
+            <a href="{% url 'connexion' %}"><span class="ni-pastille"></span>Histoire-Géographie</a>
+            <a href="{% url 'connexion' %}"><span class="ni-pastille"></span>Français</a>
+            <a href="{% url 'connexion' %}"><span class="ni-pastille"></span>Anglais</a>
+        </aside>
+
+        <a href="{% url 'accueil' %}" class="ni-logo"><img src="{% static 'img/logo-xamxamia.svg' %}" alt=""><span>XamXam<span class="ia">IA</span></span></a>
+        <div style="flex:1"></div>
+        <nav class="ni-nav">
             {% if user.is_authenticated %}
                 <a href="{% url 'connexion' %}">Tableau de bord</a>
-                <a href="{% url 'assistant_ia' %}">LIA</a>
-                <a href="{% url 'deconnexion' %}">Déconnexion</a>
+                <a href="{% url 'deconnexion' %}" class="ni-plein">Déconnexion</a>
             {% else %}
-                <a href="{% url 'connexion' %}" class="actif">Connexion</a>
+                <a href="{% url 'connexion' %}">Connecte-toi</a>
+                <a href="{% url 'inscription' %}" class="ni-plein">Crée ton compte</a>
             {% endif %}
-        </div>
-    </nav>
+        </nav>
+    </header>
 
     {% block corps %}
     <div class="conteneur">
@@ -28,6 +49,34 @@
         {% endblock %}
     </div>
     {% endblock %}
+
+    <footer class="ni-pied">
+        <div class="ni-pied-grille">
+            <div class="ni-pied-marque">
+                <a href="{% url 'accueil' %}" class="ni-logo"><img src="{% static 'img/logo-xamxamia.svg' %}" alt=""><span>XamXam<span class="ia">IA</span></span></a>
+                <span class="ni-slogan">Plateforme pédagogique hors ligne, hébergée sur un Raspberry Pi 5.</span>
+            </div>
+            <div class="ni-pied-colonne">
+                <span class="ni-pied-titre">Plateforme</span>
+                <a href="{% url 'apropos' %}">À propos</a>
+                <a href="{% url 'connexion' %}">Connecte-toi</a>
+                <a href="{% url 'inscription' %}">Crée ton compte</a>
+            </div>
+            <div class="ni-pied-colonne">
+                <span class="ni-pied-titre">Nos matières</span>
+                <a href="{% url 'connexion' %}">Mathématiques</a>
+                <a href="{% url 'connexion' %}">Physique-chimie</a>
+                <a href="{% url 'connexion' %}">SVT</a>
+                <a href="{% url 'connexion' %}">Histoire-géographie</a>
+                <a href="{% url 'connexion' %}">Français</a>
+            </div>
+            <div class="ni-pied-lia">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-8 8H7l-4 3v-6a8 8 0 1 1 18-5z"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01"/></svg>
+                LIA
+            </div>
+        </div>
+        <div class="ni-pied-bas"><span>© 2026 XamXamIA</span><span>Plateforme pédagogique hors ligne</span></div>
+    </footer>
 
 </body>
 </html>
