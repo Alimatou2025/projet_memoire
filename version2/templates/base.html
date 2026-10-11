@@ -70,13 +70,18 @@
                 <a href="{% url 'connexion' %}">Histoire-géographie</a>
                 <a href="{% url 'connexion' %}">Français</a>
             </div>
-            <div class="ni-pied-lia">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-8 8H7l-4 3v-6a8 8 0 1 1 18-5z"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01"/></svg>
-                LIA
-            </div>
         </div>
         <div class="ni-pied-bas"><span>© 2026 XamXamIA</span><span>Plateforme pédagogique hors ligne</span></div>
     </footer>
+
+    {% if request.resolver_match.url_name != "connexion" and request.resolver_match.url_name != "inscription" %}
+    <a href="{% if user.is_authenticated and user.role == 'apprenant' %}{% url 'assistant_ia' %}{% else %}{% url 'connexion' %}{% endif %}" class="lia-flottant" aria-label="Ouvrir LIA, l'assistante pédagogique">
+        <span class="lia-icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-8 8H7l-4 3v-6a8 8 0 1 1 18-5z"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01"/></svg>
+        </span>
+        <span class="lia-textes"><span class="lia-nom">LIA</span><span class="lia-sous">{% if user.is_authenticated and user.role == 'apprenant' %}Pose ta question{% else %}Connecte-toi pour discuter{% endif %}</span></span>
+    </a>
+    {% endif %}
 
 </body>
 </html>
