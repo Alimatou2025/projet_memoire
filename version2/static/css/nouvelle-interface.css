@@ -253,3 +253,5 @@ html, body, input, select, textarea, button {
 .bandeau-lia input[type="text"] { width: 100%; box-sizing: border-box; margin-top: 0.6rem; padding: 0.8rem 1.1rem; border: 2px solid rgba(74, 15, 26, 0.18); border-radius: 999px; background: #fff; color: var(--ni-or-texte); font: inherit; font-size: 1rem; }
 .bandeau-lia input[type="text"]:focus { outline: 3px solid rgba(127, 29, 45, 0.35); border-color: var(--ni-bordeaux); }
 .bandeau-lia button.bouton { border: 0; cursor: pointer; }
+/* Quand le tiroir LIA est ouvert, on masque le bouton flottant */
+body:has(.tiroir-lia.ouvert) .lia-flottant { display: none; }
