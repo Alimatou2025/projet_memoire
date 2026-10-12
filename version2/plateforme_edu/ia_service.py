@@ -46,6 +46,18 @@ MODELES_PAR_CATEGORIE = {
     "resume": "gemma2:2b",
 }
 
+# Routage par matière : la matière choisie par l'apprenant dans l'interface
+# détermine directement la catégorie, donc le modèle (plus d'étape de
+# classification). Même table catégorie -> modèle qu'avant.
+CATEGORIE_PAR_MATIERE = {
+    "Mathématiques": "raisonnement",
+    "Physique-Chimie": "raisonnement",
+    "SVT": "raisonnement",
+    "Français": "connaissances_generales",
+    "Culture générale": "connaissances_generales",
+}
+MATIERES = list(CATEGORIE_PAR_MATIERE)
+
 TAILLE_SEGMENT = 800
 SEUIL_DISTANCE = 0.50
 NOMBRE_PASSAGES = 3
@@ -314,7 +326,7 @@ def _nettoyer_reponse(texte):
     return texte.strip()
 
 
-def generer_reponse(question, passages=None, historique=None):
+def generer_reponse(question, passages=None, historique=None, matiere=None):
     """
     Route la question vers le bon modèle et génère la réponse, en
     s'appuyant sur les passages de cours fournis (le cas échéant) et sur
@@ -322,9 +334,12 @@ def generer_reponse(question, passages=None, historique=None):
     questions de suivi du type "et pour un cercle ?").
     `historique` : liste de tuples (question, reponse), du plus ancien
     au plus récent.
+    `matiere` : matière choisie par l'apprenant. Si elle est connue
+    (CATEGORIE_PAR_MATIERE), le modèle est déduit directement, sans appel
+    de classification ; sinon, retour au routage automatique.
     Renvoie (texte_reponse, nom_du_modele_utilise).
     """
-    categorie = router_question(question)
+    categorie = CATEGORIE_PAR_MATIERE.get(matiere) or router_question(question)
     modele = MODELES_PAR_CATEGORIE[categorie]
 
     bloc_historique = ""
@@ -385,3 +400,25 @@ def generer_reponse(question, passages=None, historique=None):
         )
 
     return texte_reponse, modele
+
+
+def precharger_modele(matiere):
+    """
+    Charge en mémoire le modèle associé à la matière (sans générer de texte),
+    pour que la première question n'ait pas à attendre le chargement.
+    Le modèle reste en mémoire 30 minutes. Renvoie le nom du modèle, ou
+    None si la matière est inconnue ou si Ollama est injoignable.
+    """
+    categorie = CATEGORIE_PAR_MATIERE.get(matiere)
+    if not categorie:
+        return None
+    modele = MODELES_PAR_CATEGORIE[categorie]
+    try:
+        _appel_ollama(
+            "/api/generate",
+            {"model": modele, "prompt": "", "stream": False, "keep_alive": "30m"},
+            timeout=120,
+        )
+    except ErreurServiceIA:
+        return None
+    return modele

@@ -25,6 +25,7 @@ urlpatterns = [
     path("mes-ressources/<uuid:id_ressource>/modifier/", views.modifier_ressource, name="modifier_ressource"),
     path("mes-ressources/<uuid:id_ressource>/supprimer/", views.supprimer_ressource, name="supprimer_ressource"),
     path("assistant-ia/", views.assistant_ia, name="assistant_ia"),
+    path("assistant-ia/precharger/", views.precharger_matiere, name="precharger_matiere"),
 
     path("parcours/", views.parcours_disponibles, name="parcours_disponibles"),
     path("quiz/<uuid:id_ressource>/passer/", views.passer_quiz, name="passer_quiz"),
