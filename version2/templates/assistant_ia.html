@@ -73,9 +73,8 @@
 
                 <div class="import-cours">
                     <select id="matiere" name="matiere" title="Choisis la matière : LIA charge le bon modèle à l'avance">
-                        <option value="">Matière : automatique</option>
                         {% for m in matieres %}
-                        <option value="{{ m }}">{{ m }}</option>
+                        <option value="{{ m }}"{% if m == matiere_defaut %} selected{% endif %}>{{ m }}</option>
                         {% endfor %}
                     </select>
                 </div>

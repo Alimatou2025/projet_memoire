@@ -159,7 +159,7 @@ def assistant_ia(request):
         document_joint = request.FILES.get("document_joint")
         matiere = request.POST.get("matiere", "").strip()
         if matiere not in ia_service.CATEGORIE_PAR_MATIERE:
-            matiere = ""  # "Automatique" : routage par classification
+            matiere = ""  # absente : matière par défaut (pas de classification)
 
         if not question and document_joint:
             question = "Peux-tu m'expliquer ce document : {} ?".format(document_joint.name)
@@ -244,6 +244,7 @@ def assistant_ia(request):
         )
 
         contexte["matieres"] = ia_service.MATIERES
+        contexte["matiere_defaut"] = ia_service.MATIERE_PAR_DEFAUT
         contexte["ressources_disponibles"] = Ressource.objects.filter(
             espace__parcours__inscriptions__apprenant=profil
         ).distinct()

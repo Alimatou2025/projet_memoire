@@ -57,6 +57,9 @@ CATEGORIE_PAR_MATIERE = {
     "Culture générale": "connaissances_generales",
 }
 MATIERES = list(CATEGORIE_PAR_MATIERE)
+# Matière utilisée si l'apprenant n'en a pas choisi : modèle le plus léger, sans
+# appel de classification supplémentaire (économie de temps et d'énergie).
+MATIERE_PAR_DEFAUT = "Culture générale"
 
 TAILLE_SEGMENT = 800
 SEUIL_DISTANCE = 0.50
@@ -268,6 +271,9 @@ def rechercher_passages_fichier_televerse(question, fichier_televerse, k=NOMBRE_
 
 def router_question(question):
     """
+    [Plus utilisé par la plateforme : conservé uniquement pour reproduire le test
+    « routage automatique » de la section 4.6 du mémoire.]
+
     Renvoie une clé de MODELES_PAR_CATEGORIE. Utilise un petit modèle Qwen
     pour comprendre le sens de la question ; si sa réponse ne peut pas être
     interprétée (ou si Ollama est injoignable), on retombe sur une règle de
@@ -334,12 +340,12 @@ def generer_reponse(question, passages=None, historique=None, matiere=None):
     questions de suivi du type "et pour un cercle ?").
     `historique` : liste de tuples (question, reponse), du plus ancien
     au plus récent.
-    `matiere` : matière choisie par l'apprenant. Si elle est connue
-    (CATEGORIE_PAR_MATIERE), le modèle est déduit directement, sans appel
-    de classification ; sinon, retour au routage automatique.
+    `matiere` : matière choisie par l'apprenant. Le modèle est déduit directement
+    (CATEGORIE_PAR_MATIERE), sans appel de classification ; si la matière est
+    absente, MATIERE_PAR_DEFAUT est utilisée.
     Renvoie (texte_reponse, nom_du_modele_utilise).
     """
-    categorie = CATEGORIE_PAR_MATIERE.get(matiere) or router_question(question)
+    categorie = CATEGORIE_PAR_MATIERE.get(matiere) or CATEGORIE_PAR_MATIERE[MATIERE_PAR_DEFAUT]
     modele = MODELES_PAR_CATEGORIE[categorie]
 
     bloc_historique = ""
