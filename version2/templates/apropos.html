@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block titre %}XamXamIA — À propos{% endblock %}
+
+{% block corps %}
+<section class="ni-bandeau-apropos">
+    <div class="ni-interieur">
+        <span class="ni-etiquette">À propos</span>
+        <h1>Apprends, même <em>hors ligne</em>.</h1>
+        <p>XamXamIA donne accès à des cours, des quiz et à une assistante pédagogique sans connexion Internet. « Xam » signifie « savoir » en wolof, et « IA » désigne l'intelligence artificielle.</p>
+    </div>
+</section>
+
+<section class="ni-section">
+    <h2 class="ni-titre">Pour qui ?</h2>
+    <p style="margin:0 0 20px;color:var(--couleur-texte-att)">Pour l'apprenant qui n'a pas de bonne connexion Internet et veut comprendre ses cours en profondeur.</p>
+    <div class="ni-grille3">
+        <div class="ni-carte"><strong>À la maison</strong><span class="ni-texte">Le Raspberry Pi est branché chez l'apprenant ou sa famille : il se connecte avec son téléphone, sans Internet.</span></div>
+        <div class="ni-carte"><strong>Dans un lieu partagé</strong><span class="ni-texte">Bibliothèque, association, point d'étude : plusieurs apprenants se connectent au même boîtier.</span></div>
+        <div class="ni-carte"><strong>Sans abonnement</strong><span class="ni-texte">Un seul appareil, sans forfait de données ni facture par question.</span></div>
+    </div>
+</section>
+
+<section class="ni-section">
+    <h2 class="ni-titre">Ce qui la distingue</h2>
+    <div class="ni-grille3" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+        <div class="ni-carte"><strong>Sans Internet</strong><span class="ni-texte">Un Raspberry Pi 5 diffuse son propre réseau Wi-Fi et héberge la plateforme.</span></div>
+        <div class="ni-carte"><strong>Données locales</strong><span class="ni-texte">Cours, comptes et résultats restent sur l'appareil.</span></div>
+        <div class="ni-carte"><strong>Assistante LIA</strong><span class="ni-texte">Elle répond à partir de documents pédagogiques préparés à l'avance.</span></div>
+        <div class="ni-carte"><strong>Parcours adapté</strong><span class="ni-texte">Le niveau de chaque apprenant est recalculé après chaque quiz.</span></div>
+    </div>
+</section>
+
+<section class="ni-section">
+    <div class="ni-deux">
+        <div class="ni-carte"><h2>Le projet</h2><p>XamXamIA est un projet de Licence 3 Informatique de l'Université du Sine Saloum El Hadji Ibrahima NIASS (USSEIN). Il montre qu'une plateforme pédagogique avec une assistante IA peut fonctionner entièrement hors ligne, sur un matériel accessible et à faible coût.</p></div>
+        <div class="ni-carte"><h2>Une IA qui peut se tromper</h2><p>LIA fonctionne avec de petits modèles de langage, exécutés sur un Raspberry Pi. Ses réponses peuvent contenir des erreurs : vérifie-les toujours avec tes cours.</p></div>
+    </div>
+</section>
+{% endblock %}

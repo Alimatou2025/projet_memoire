@@ -7,6 +7,7 @@ from . import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.accueil, name="accueil"),
+    path("a-propos/", views.apropos, name="apropos"),
     path("connexion/", views.connexion, name="connexion"),
     path("inscription/", views.inscription, name="inscription"),
     path("deconnexion/", views.deconnexion, name="deconnexion"),
@@ -24,6 +25,7 @@ urlpatterns = [
     path("mes-ressources/<uuid:id_ressource>/modifier/", views.modifier_ressource, name="modifier_ressource"),
     path("mes-ressources/<uuid:id_ressource>/supprimer/", views.supprimer_ressource, name="supprimer_ressource"),
     path("assistant-ia/", views.assistant_ia, name="assistant_ia"),
+    path("assistant-ia/precharger/", views.precharger_matiere, name="precharger_matiere"),
 
     path("parcours/", views.parcours_disponibles, name="parcours_disponibles"),
     path("quiz/<uuid:id_ressource>/passer/", views.passer_quiz, name="passer_quiz"),

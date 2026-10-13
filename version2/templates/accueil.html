@@ -1,19 +1,52 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block titre %}Accueil — Plateforme pédagogique{% endblock %}
+{% block titre %}XamXamIA — Accueil{% endblock %}
 
-{% block contenu %}
-<div class="banniere-accueil">
-    <img src="{% static 'images/accueil-hero.jpg' %}" alt="Deux apprenants utilisant la plateforme, l'un sur ordinateur, l'autre sur téléphone">
-    <div class="banniere-accueil-texte">
-        <h1>Apprendre, même sans connexion internet</h1>
-        <p>
-            Une plateforme pédagogique intelligente, pensée pour fonctionner
-            hors ligne, avec un assistant IA qui répond aux questions des
-            apprenants à partir des cours de l'établissement.
-        </p>
-        <a href="{% url 'connexion' %}" class="bouton">Se connecter</a>
+{% block corps %}
+<section class="ni-section">
+    <div class="ni-hero">
+        <img src="{% static 'images/hero-xamxamia.jpg' %}" alt="Des apprenants utilisent XamXamIA sur un téléphone et un ordinateur">
+        <div class="ni-hero-texte">
+            <h1>Apprends, même sans connexion internet</h1>
+            <p>Une assistante IA qui répond à tes questions, sans Internet.</p>
+            <p class="ni-wifi">Réseau Wi-Fi : <b>XamXamIA</b></p>
+            <a href="{% url 'connexion' %}" class="ni-bouton">Connecte-toi</a>
+        </div>
     </div>
-</div>
+</section>
+
+<section class="ni-etapes">
+    <div class="ni-etapes-interieur">
+        <h2 class="ni-titre">Comment ça marche</h2>
+        <div class="ni-grille3">
+            <div class="ni-etape"><span class="ni-num">1</span><div><strong>Connecte-toi au Wi-Fi</strong><span class="ni-detail">Choisis le réseau « XamXamIA », diffusé par le Raspberry Pi.</span></div></div>
+            <div class="ni-etape"><span class="ni-num">2</span><div><strong>Ouvre la plateforme</strong><span class="ni-detail">Tape monespace.sn dans ton navigateur.</span></div></div>
+            <div class="ni-etape"><span class="ni-num">3</span><div><strong>Apprends avec LIA</strong><span class="ni-detail">Consulte tes cours, passe des quiz et pose tes questions à l'assistante.</span></div></div>
+        </div>
+    </div>
+</section>
+
+<section class="ni-section ni-lia-section">
+    <div class="ni-lia-texte">
+        <h2>LIA, ton assistante pédagogique</h2>
+        <p>LIA répond à tes questions à partir de documents pédagogiques préparés à l'avance.</p>
+    </div>
+    <div class="ni-chat">
+        <div class="ni-q">Résous x² − 5x + 6 = 0</div>
+        <div class="ni-r">On calcule le discriminant : Δ = 25 − 24 = 1. Les solutions sont x = 2 et x = 3.</div>
+        <div class="ni-saisie"><span>Pose ta question…</span><b>Envoyer</b></div>
+        <p class="mention-ia">LIA est une IA et peut commettre des erreurs. Vérifie avec tes cours.</p>
+    </div>
+</section>
+
+<section class="ni-section ni-decouvre">
+    <h2 class="ni-titre" style="margin-bottom:8px">Découvre</h2>
+    <p class="ni-sous">Choisis une matière, puis pose ta question à LIA.</p>
+    <div class="ni-groupes">
+        <div class="ni-groupe g1"><h3>Raisonnement</h3><a href="{% url 'connexion' %}">Mathématiques</a><a href="{% url 'connexion' %}">Physique-chimie</a></div>
+        <div class="ni-groupe g2"><h3>Culture générale</h3><a href="{% url 'connexion' %}">SVT</a><a href="{% url 'connexion' %}">Histoire-géographie</a></div>
+        <div class="ni-groupe g3"><h3>Autres</h3><a href="{% url 'connexion' %}">Français</a><a href="{% url 'connexion' %}">Résumer un cours</a></div>
+    </div>
+</section>
 {% endblock %}

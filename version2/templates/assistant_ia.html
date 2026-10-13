@@ -71,6 +71,14 @@
                 {% csrf_token %}
                 <input type="hidden" name="conversation_id" value="{{ conversation_active }}">
 
+                <div class="import-cours">
+                    <select id="matiere" name="matiere" title="Choisis la matière : LIA charge le bon modèle à l'avance">
+                        {% for m in matieres %}
+                        <option value="{{ m }}"{% if m == matiere_defaut %} selected{% endif %}>{{ m }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
                 {% if ressources_disponibles %}
                 <div class="import-cours">
                     <select id="ressource" name="ressource">
@@ -90,6 +98,7 @@
                     <button type="submit" class="bouton">Envoyer</button>
                 </div>
                 <small id="nom-fichier-choisi" class="nom-fichier-choisi"></small>
+                <p class="mention-ia">LIA est une IA et peut commettre des erreurs. Vérifie avec tes cours.</p>
             </form>
         </div>
     </div>
@@ -102,6 +111,24 @@
 
     if (zoneMessages) {
         zoneMessages.scrollTop = zoneMessages.scrollHeight;
+    }
+
+    var choixMatiere = document.getElementById('matiere');
+    if (choixMatiere) {
+        try {
+            var memoire = sessionStorage.getItem('lia_matiere');
+            if (memoire) { choixMatiere.value = memoire; }
+        } catch (e) {}
+        var precharger = function () {
+            try { sessionStorage.setItem('lia_matiere', choixMatiere.value); } catch (e) {}
+            if (!choixMatiere.value) { return; }
+            var donnees = new FormData();
+            donnees.append('matiere', choixMatiere.value);
+            donnees.append('csrfmiddlewaretoken', form.querySelector('[name=csrfmiddlewaretoken]').value);
+            fetch('{% url "precharger_matiere" %}', {method: 'POST', body: donnees, credentials: 'same-origin'});
+        };
+        choixMatiere.addEventListener('change', precharger);
+        if (choixMatiere.value) { precharger(); }
     }
 
     var boutonHamburger = document.getElementById('bouton-hamburger');

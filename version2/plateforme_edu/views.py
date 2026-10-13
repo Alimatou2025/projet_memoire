@@ -24,6 +24,11 @@ def accueil(request):
     return render(request, "accueil.html")
 
 
+def apropos(request):
+    """Page « À propos » publique."""
+    return render(request, "apropos.html")
+
+
 def connexion(request):
     """
     Une seule page de connexion. Après vérification du mot de passe,
@@ -112,6 +117,17 @@ def deconnexion(request):
 
 
 @login_required
+def precharger_matiere(request):
+    """Appelée quand l'apprenant change de matière : charge le modèle à l'avance."""
+    from django.http import JsonResponse
+    from . import ia_service
+    if request.method != "POST":
+        return JsonResponse({"erreur": "POST requis"}, status=405)
+    modele = ia_service.precharger_modele(request.POST.get("matiere", ""))
+    return JsonResponse({"modele": modele})
+
+
+@login_required
 def assistant_ia(request):
     """
     Page de l'assistant IA. À l'ouverture de la page (sans conversation
@@ -141,6 +157,9 @@ def assistant_ia(request):
             ressource = Ressource.objects.filter(id_ressource=ressource_id).first()
 
         document_joint = request.FILES.get("document_joint")
+        matiere = request.POST.get("matiere", "").strip()
+        if matiere not in ia_service.CATEGORIE_PAR_MATIERE:
+            matiere = ""  # absente : matière par défaut (pas de classification)
 
         if not question and document_joint:
             question = "Peux-tu m'expliquer ce document : {} ?".format(document_joint.name)
@@ -174,7 +193,7 @@ def assistant_ia(request):
                     # dans tout le corpus ChromaDB (interet du RAG).
                     passages = ia_service.rechercher_passages_corpus(question)
 
-                reponse, modele_utilise = ia_service.generer_reponse(question, passages, derniers_echanges)
+                reponse, modele_utilise = ia_service.generer_reponse(question, passages, derniers_echanges, matiere=matiere or None)
             except ia_service.ErreurServiceIA:
                 reponse = (
                     "Désolé, je n'ai pas pu contacter le service IA local (Ollama). "
@@ -224,6 +243,8 @@ def assistant_ia(request):
             if conversation_affichee else profil.echanges_ia.none()
         )
 
+        contexte["matieres"] = ia_service.MATIERES
+        contexte["matiere_defaut"] = ia_service.MATIERE_PAR_DEFAUT
         contexte["ressources_disponibles"] = Ressource.objects.filter(
             espace__parcours__inscriptions__apprenant=profil
         ).distinct()

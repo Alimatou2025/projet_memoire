@@ -13,6 +13,17 @@
     <p>Continue sur ta lancée, voici où tu en es.</p>
 </div>
 
+<div class="bandeau-lia">
+    <div class="bandeau-icone">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-8 8H7l-4 3v-6a8 8 0 1 1 18-5z"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01"/></svg>
+    </div>
+    <div class="bandeau-texte">
+        <h2>Une question sur un cours ?</h2>
+        <p>LIA te répond à partir de tes documents de cours.</p>
+    </div>
+    <a href="{% url 'assistant_ia' %}" class="bouton">Pose ta question</a>
+</div>
+
 <div class="grille-stats">
     <div class="carte-stat">
         <div><span class="valeur">{{ statistiques.moyenne_generale|default:"—" }}</span><span class="libelle">Moyenne générale</span></div>
@@ -62,19 +73,12 @@
     </div>
 
     <div>
-        <div class="carte-assistant-mini">
-            <div style="font-size:2rem;">🤖</div>
-            <strong>Une question sur un cours ?</strong>
-            <p style="opacity:0.9; font-size:0.9rem;">L'assistant IA répond directement à partir de tes documents de cours.</p>
-            <a href="{% url 'assistant_ia' %}" class="bouton">Poser une question</a>
-        </div>
-
         <h2 class="titre-section">Mes parcours</h2>
         <div class="carte">
             {% for insc in inscriptions %}
             <div class="mini-carte-ressource">
                 <span>{{ insc.parcours.intitule }}</span>
-                <a href="{% url 'mes_ressources' %}" class="bouton bouton-secondaire" style="padding:0.3rem 0.8rem; font-size:0.8rem;">Ouvrir</a>
+                <a href="{% url 'mes_ressources' %}" class="bouton bouton-secondaire" style="padding:0.3rem 0.8rem; font-size:0.8rem;">Ouvre</a>
             </div>
             {% empty %}
             <p class="liste-vide">Tu n'es inscrit à aucun parcours.</p>
